@@ -2,8 +2,5 @@
   "userId": "u-xxxxxxx",
   "apiToken": "t-xxxxxx",
   "apiSecret": "xxxxxx",
-  "conferenceNumber": "+1-number-from-bandwidth",
-  "domain": "domain",
-  "caller": "+1-number-from-bandwidth",
-  "bridgeCallee": "+1-number-which-can-receive-a-call"
+  "domain": "domain"
 }
