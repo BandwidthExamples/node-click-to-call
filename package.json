@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@bandwidth/node-bandwidth-extra": "^1.0.1",
+		"@bandwidth/shared-components": "^1.1.12",
 		"bcryptjs": "^2.4.3",
 		"debug": "^2.6.8",
 		"dotenv": "^4.0.0",
@@ -34,11 +35,7 @@
 		"nodemailer": "^4.0.1",
 		"passport-local": "^1.0.0",
 		"redis": "^2.8.0",
-		"sse_stream": "^0.0.2",
-		"vue": "^2.3.4",
-		"vue-router": "^2.7.0",
-		"vue2-timepicker": "^0.1.4",
-		"vuejs-datepicker": "^0.8.4"
+		"sse_stream": "^0.0.2"
 	},
 	"devDependencies": {
 		"ava": "^0.19.1",
@@ -55,8 +52,6 @@
 		"npm-run-all": "^4.0.2",
 		"supertest": "^3.0.0",
 		"testdouble": "^2.1.2",
-		"vue-loader": "^13.0.0",
-		"vue-template-compiler": "^2.3.4",
 		"webpack": "2.2",
 		"webpack-dev-server": "^2.5.0",
 		"xo": "^0.18.2"
