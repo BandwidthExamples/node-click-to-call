@@ -6,7 +6,7 @@ module.exports = env => {
 	const config = {
 		devtool: (env === 'prod') ? false : '#eval-source-map',
 		entry: {
-			app: path.join(__dirname, 'assets', 'js', 'index.js'),
+			app: path.join(__dirname, 'assets', 'index.js'),
 			vendor: ['react', 'react-router', 'moment']
 		},
 		output: {
@@ -15,7 +15,7 @@ module.exports = env => {
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
-				title: 'Appontment Reminder',
+				title: 'Click to call',
 				template: path.join(__dirname, 'assets', 'index.html')
 			}),
 			new webpack.optimize.CommonsChunkPlugin({
@@ -25,8 +25,7 @@ module.exports = env => {
 		],
 		resolve: {
 			alias: {
-				'@pages': path.join(__dirname, 'assets', 'js', 'pages'),
-				'@components': path.join(__dirname, 'assets', 'js', 'components')
+				'@components': path.join(__dirname, 'assets', 'components')
 			}
 		},
 		devServer: {
@@ -46,19 +45,17 @@ module.exports = env => {
 			loaders: [
 				{test: /\.css$/, loader: 'style!css'}
 			],
-			rules: [ {
-				test: /\.js$/,
+			rules: [{
+				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				exclude: [/node_modules/, /lib/]
 			}]
 		}
 	};
+	config.plugins.push(new webpack.DefinePlugin({
+		ENV: JSON.stringify((env === 'prod') ? 'production' : (process.env.NODE_ENV || 'development'))
+	}));
 	if (env === 'prod') {
-		config.plugins.push(new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: '"production"'
-			}
-		}));
 		config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 		config.plugins.push(new webpack.LoaderOptionsPlugin({
 			minimize: true
