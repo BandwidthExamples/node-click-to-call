@@ -1,8 +1,8 @@
-import { applyMiddleware, compose, createStore as createReduxStore } from 'redux';
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
-import thunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory';
-import rootReducer from './reducers';
+import {applyMiddleware, compose, createStore as createReduxStore} from 'redux'
+import {ConnectedRouter, routerMiddleware, push} from 'react-router-redux'
+import thunk from 'redux-thunk'
+import createHistory from 'history/createBrowserHistory'
+import rootReducer from './reducers'
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -32,10 +32,7 @@ const createStore = (initialState = {}) => {
   // Store Instantiation and HMR Setup
 	// ======================================================
   const store = createReduxStore(
-    {
-			...rootReducer,
-			router: routerReducer
-		},
+    rootReducer,
     initialState,
     composeEnhancers(
       applyMiddleware(...middleware),
