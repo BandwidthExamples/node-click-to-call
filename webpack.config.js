@@ -7,7 +7,23 @@ module.exports = env => {
 		devtool: (env === 'prod') ? false : '#eval-source-map',
 		entry: {
 			app: path.join(__dirname, 'assets', 'index.js'),
-			vendor: ['react', 'react-router', 'moment']
+			vendor: [
+				'react',
+				'redux',
+				'react-dom',
+				'react-redux',
+				'react-router',
+				'react-router-redux',
+				'redux-thunk',
+				'history',
+				'object-assign',
+				'moment',
+				'prop-types',
+				'whatwg-fetch',
+				'promise',
+				'redbox-react',
+				'@bandwidth/shared-components'
+			]
 		},
 		output: {
 			path: path.join(__dirname, 'public'),
@@ -43,7 +59,8 @@ module.exports = env => {
 		},
 		module: {
 			loaders: [
-				{test: /\.css$/, loader: 'style!css'}
+				{test: /\.css$/, loader: 'style!css'},
+				{test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/, loader: 'file-loader'}
 			],
 			rules: [{
 				test: /\.jsx?$/,

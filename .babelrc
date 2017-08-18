@@ -1,13 +1,4 @@
 {
-  "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-      }
-		}],
-		"react",
-    "stage-2"
-  ],
-  "plugins": ["transform-runtime"]
+  "plugins": ["styled-components"],
+  "presets": ["react", "es2015", "stage-2"]
 }
