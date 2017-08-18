@@ -11,12 +11,11 @@ const store = createStore(window.__INITIAL_STATE__)
 const MOUNT_NODE = document.getElementById('app')
 
 let render = () => {
-	debugger
 	const App = require('./components/App.jsx').default
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<App history={history}>
+			<App>
 			</App>
 		</Provider>,
 		MOUNT_NODE

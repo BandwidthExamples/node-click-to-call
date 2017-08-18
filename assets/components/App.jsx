@@ -1,19 +1,17 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import createHistory from 'history/createBrowserHistory'
 import {ConnectedRouter} from 'react-router-redux'
 
+const history = createHistory()
 
 export default class App extends React.Component {
 	render() {
-		console.log('render')
+		console.log(history)
 		return (
-			<ConnectedRouter history={this.props.history}>
+			<ConnectedRouter history={history}>
 				<h1>Router</h1>
 			</ConnectedRouter>
 		)
 	}
 }
 
-App.propTypes = {
-	history: PropTypes.object
-}
