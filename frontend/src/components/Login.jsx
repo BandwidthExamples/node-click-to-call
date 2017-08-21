@@ -1,29 +1,36 @@
 import React from 'react'
 import {Form, FormBox, TextField, FlexFields, SubmitButtonField} from '@bandwidth/shared-components'
-import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {login} from '../store/login'
+import {login, SET_EMAIL, SET_PASSWORD} from '../store/login'
 
 class Login extends React.Component {
 	render() {
-		const {handleSubmit} = this.props
+		const {email, password, setEmail, setPassword, login} = this.props
 		return (
 			<FormBox>
-				<Form onSubmit={handleSubmit}>
+				<Form onSubmit={login}>
 					<FlexFields>
-						<Field
+						<TextField
+							label="Email"
 							name="email"
-							component="input"
 							type="email"
-							placeholder="Email"
+							input={{
+								value: email,
+								onChange: ev => setEmail(ev.target.value)
+							}}
+							required
 						/>
 					</FlexFields>
 					<FlexFields>
-						<Field
+						<TextField
+							label="Password"
 							name="password"
-							component="input"
 							type="password"
-							placeholder="Password"
+							input={{
+								value: password,
+								onChange: ev => setPassword(ev.target.value)
+							}}
+							required
 						/>
 					</FlexFields>
 					<SubmitButtonField>
@@ -38,5 +45,13 @@ class Login extends React.Component {
 export default connect(
 	state => ({
     initialValues: state.login
+	}),
+	dispatch => ({
+		setEmail: email => dispatch({type: SET_EMAIL, email}),
+		setPassword: password => dispatch({type: SET_PASSWORD, password}),
+		login: ev => {
+			ev.preventDefault()
+			return login()
+		}
 	})
-)(reduxForm({form: 'Login'})(Login))
+)(Login)

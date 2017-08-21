@@ -1,24 +1,28 @@
-import request from 'request'
+import request from '../request'
 import {push} from 'react-router-redux'
 
-const LOGIN = 'LOGIN'
-const LOGOUT = 'LOGOUT'
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const SET_EMAIL = 'SET_EMAIL'
+export const SET_PASSWORD = 'SET_PASSWORD'
 
 
 export function login() {
-	return (dispatch, getState) => {
-		request(LOGIN, '/login', 'POST').then(() => push('/'))
-	}
+	request(LOGIN, '/login', 'POST')
 }
 
 export function logout() {
-	return (dispatch, getState) => {
-		request(LOGOUT, '/logout', 'POST').then(() => push('/login'))
-	}
+	request(LOGOUT, '/logout', 'POST')
 }
 
 export default (state = {}, action) => {
 	switch (action.type) {
+		case SET_EMAIL: {
+			return {...state, email: action.email}
+		}
+		case SET_PASSWORD: {
+			return {...state, password: action.password}
+		}
 	}
 	return {...state}
 }

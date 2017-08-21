@@ -1,6 +1,8 @@
 export default function request(action, path, method='GET', options={}) {
 	return function(dispatch, getState) {
+		debugger
 		dispatch({type: `${action}_START`})
+		debugger
 		return fetch(path, {method, ...options}).then(r => {
 			try {
 				dispatch({type: `${action}_SUCCESS`, result: checkResponse(r)})
