@@ -1,5 +1,5 @@
 import {applyMiddleware, compose, createStore as createReduxStore} from 'redux'
-import {ConnectedRouter, routerMiddleware, push} from 'react-router-redux'
+import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
 import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './reducers'
@@ -21,7 +21,7 @@ const createStore = (initialState = {}) => {
   const enhancers = []
   let composeEnhancers = compose
 
-  if (ENV !== 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     }
