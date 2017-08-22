@@ -6,6 +6,7 @@ import {BandwidthThemeProvider, Navigation, Page, Spacing} from '@bandwidth/shar
 
 import Register from './Register.jsx'
 import ResetPasswordRequest from './ResetPasswordRequest.jsx'
+import ResetPassword from './ResetPassword.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 
@@ -29,6 +30,7 @@ export default class App extends React.Component {
 								<Route exact path="/login" component={Login}/>
 								<Route exact path="/register" component={Register}/>
 								<Route exact path="/reset-password-request" component={ResetPasswordRequest}/>
+								<Route path="/reset-password/:token" component={ResetPassword}/>
 							</Spacing>
 						</Page>
 					</div>
