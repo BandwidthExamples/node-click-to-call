@@ -8,11 +8,11 @@ export const SET_PASSWORD = 'SET_PASSWORD'
 
 
 export function login() {
-	request(LOGIN, '/login', 'POST')
+	return request(LOGIN, '/login', 'POST', 'login')
 }
 
 export function logout() {
-	request(LOGOUT, '/logout', 'POST')
+	return request(LOGOUT, '/logout', 'POST')
 }
 
 export default (state = {}, action) => {

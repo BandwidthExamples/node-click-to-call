@@ -51,7 +51,7 @@ export default connect(
 		setPassword: password => dispatch({type: SET_PASSWORD, password}),
 		login: ev => {
 			ev.preventDefault()
-			return login()
+			return dispatch(login())
 		}
 	})
 )(Login)

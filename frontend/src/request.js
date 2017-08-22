@@ -1,17 +1,21 @@
-export default function request(action, path, method='GET', options={}) {
-	return function(dispatch, getState) {
-		debugger
+export default function request(action, path, method='GET', stateName='', options={}) {
+	return async function(dispatch, getState) {
 		dispatch({type: `${action}_START`})
-		debugger
-		return fetch(path, {method, ...options}).then(r => {
-			try {
-				dispatch({type: `${action}_SUCCESS`, result: checkResponse(r)})
-			} catch (err) {
-				dispatch({type: `${action}_ERROR`, error: err.message})
+		options.credentials = 'same-origin'
+		if (stateName) {
+			const state = getState()
+			if (state[stateName]) {
+				options.body = JSON.stringify(state[stateName]);
+				options.headers = options.headers || {}
+				options.headers['Content-Type'] = 'application/json'
 			}
-		}, err => {
+		}
+		try {
+			const r = await fetch(path, {method, ...options})
+			dispatch({type: `${action}_SUCCESS`, result: await checkResponse(r)})
+		} catch (err) {
 			dispatch({type: `${action}_ERROR`, error: err.message})
-		});
+		}
 	}
 }
 
