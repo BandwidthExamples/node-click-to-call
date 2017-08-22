@@ -5,7 +5,7 @@ import {resetPassword, SET_PASSWORD, SET_REPEAT_PASSWORD} from '../store/resetPa
 
 class ResetPassword extends React.Component {
 	render() {
-		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error, success, params} = this.props
+		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error, success} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={ev => resetPassword(ev, this.props.match.params.token)}>
