@@ -23,6 +23,12 @@ export default (state = {}, action) => {
 		case SET_PASSWORD: {
 			return {...state, password: action.password}
 		}
+		case `${LOGIN}_ERROR`: {
+			return {...state, error: action.error}
+		}
+		case `${LOGIN}_START`: {
+			return {...state, error: null}
+		}
 	}
 	return {...state}
 }
