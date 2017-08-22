@@ -1,17 +1,14 @@
 import request from '../request'
 
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
+export const REGISTER = 'REGISTER'
+
 export const SET_EMAIL = 'SET_EMAIL'
 export const SET_PASSWORD = 'SET_PASSWORD'
+export const SET_REPEAT_PASSWORD = 'SET_REPEAT_PASSWORD'
 
 
-export function login() {
-	return request(LOGIN, '/login', 'POST', 'login')
-}
-
-export function logout() {
-	return request(LOGOUT, '/logout', 'POST')
+export function register() {
+	return request(REGISTER, '/register', 'POST', 'register')
 }
 
 export default (state = {}, action) => {
@@ -22,10 +19,13 @@ export default (state = {}, action) => {
 		case SET_PASSWORD: {
 			return {...state, password: action.password}
 		}
-		case `${LOGIN}_ERROR`: {
+		case SET_REPEAT_PASSWORD: {
+			return {...state, repeatPassword: action.repeatPassword}
+		}
+		case `${REGISTER}_ERROR`: {
 			return {...state, error: action.error}
 		}
-		case `${LOGIN}_START`: {
+		case `${REGISTER}_START`: {
 			return {...state, error: null}
 		}
 		default: {

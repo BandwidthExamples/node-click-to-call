@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, FormBox, TextField, FlexFields, SubmitButtonField, Alert} from '@bandwidth/shared-components'
+import {Form, FormBox, TextField, FlexFields, SubmitButtonField, Alert, AnchorField} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {login, SET_EMAIL, SET_PASSWORD} from '../store/login'
 
@@ -34,10 +34,9 @@ class Login extends React.Component {
 							required
 						/>
 					</FlexFields>
-					<SubmitButtonField>
-						Login
-					</SubmitButtonField>
+					<SubmitButtonField>Login</SubmitButtonField>
 				</Form>
+				<AnchorField to="/register">Register new user</AnchorField>
 			</FormBox>
 		)
 	}
