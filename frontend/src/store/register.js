@@ -1,10 +1,10 @@
 import request from '../request'
 
-export const REGISTER = 'REGISTER'
+export const REGISTER = 'REGISTER/REGISTER'
 
-export const SET_EMAIL = 'SET_EMAIL'
-export const SET_PASSWORD = 'SET_PASSWORD'
-export const SET_REPEAT_PASSWORD = 'SET_REPEAT_PASSWORD'
+export const SET_EMAIL = 'REGISTER/SET_EMAIL'
+export const SET_PASSWORD = 'REGISTER/SET_PASSWORD'
+export const SET_REPEAT_PASSWORD = 'REGISTER/SET_REPEAT_PASSWORD'
 
 
 export function register() {

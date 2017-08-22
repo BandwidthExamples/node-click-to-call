@@ -1,9 +1,9 @@
 import request from '../request'
 
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
-export const SET_EMAIL = 'SET_EMAIL'
-export const SET_PASSWORD = 'SET_PASSWORD'
+export const LOGIN = 'LOGIN/LOGIN'
+export const LOGOUT = 'LOGIN/LOGOUT'
+export const SET_EMAIL = 'LOGIN/SET_EMAIL'
+export const SET_PASSWORD = 'LOGIN/SET_PASSWORD'
 
 
 export function login() {

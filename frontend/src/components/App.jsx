@@ -5,7 +5,7 @@ import {ConnectedRouter} from 'react-router-redux'
 import {BandwidthThemeProvider, Navigation, Page, Spacing} from '@bandwidth/shared-components'
 
 import Register from './Register.jsx'
-import ResetPassword from './ResetPassword.jsx'
+import ResetPasswordRequest from './ResetPasswordRequest.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
 								<Route exact path="/" component={Home}/>
 								<Route exact path="/login" component={Login}/>
 								<Route exact path="/register" component={Register}/>
-								<Route exact path="/reset-password" component={ResetPassword}/>
+								<Route exact path="/reset-password-request" component={ResetPasswordRequest}/>
 							</Spacing>
 						</Page>
 					</div>

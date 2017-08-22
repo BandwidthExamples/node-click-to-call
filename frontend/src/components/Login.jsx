@@ -36,7 +36,10 @@ class Login extends React.Component {
 					</FlexFields>
 					<SubmitButtonField>Login</SubmitButtonField>
 				</Form>
-				<AnchorField to="/register">Register new user</AnchorField>
+				<div>
+					<AnchorField to="/register">Register new user</AnchorField>
+					<AnchorField to="/reset-password-request">Forgot your password</AnchorField>
+				</div>
 			</FormBox>
 		)
 	}

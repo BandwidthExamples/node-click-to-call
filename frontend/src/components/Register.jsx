@@ -5,7 +5,7 @@ import {register, SET_EMAIL, SET_PASSWORD, SET_REPEAT_PASSWORD} from '../store/r
 
 class Register extends React.Component {
 	render() {
-		const {email, password, repeatPassword, setEmail, setPassword, setRepeatPassword, register, error} = this.props
+		const {email, password, repeatPassword, setEmail, setPassword, setRepeatPassword, register, error, success} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={register}>
