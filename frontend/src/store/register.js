@@ -20,7 +20,7 @@ export default (state = {}, action) => {
 			return {...state, password: action.password}
 		}
 		case SET_REPEAT_PASSWORD: {
-			return {...state, repeatPassword: action.repeatPassword}
+			return {...state, repeatPassword: action.password}
 		}
 		case `${REGISTER}_ERROR`: {
 			return {...state, error: action.error}
