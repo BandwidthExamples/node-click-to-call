@@ -10,6 +10,7 @@ class Register extends React.Component {
 			<FormBox>
 				<Form onSubmit={register}>
 					{error && <Alert type="error">{error}</Alert>}
+					{success && <Alert type="success">User has been created. Please check your email and follow instructions there.</Alert>}
 					<FlexFields>
 						<TextField
 							label="Email"

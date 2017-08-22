@@ -28,6 +28,9 @@ export default (state = {}, action) => {
 		case `${REGISTER}_START`: {
 			return {...state, error: null}
 		}
+		case `${REGISTER}_SUCCESS`: {
+			return {...state, error: null, success: true}
+		}
 		default: {
 			return {...state}
 		}
