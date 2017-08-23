@@ -1,11 +1,12 @@
 import React from 'react'
+import {push} from 'react-router-redux'
 import {Form, FormBox, TextField, FlexFields, SubmitButtonField, Alert} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {resetPassword, SET_PASSWORD, SET_REPEAT_PASSWORD} from '../store/resetPassword'
 
 class ResetPassword extends React.Component {
 	render() {
-		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error} = this.props
+		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error, loading} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={ev => resetPassword(ev, this.props.match.params.token)}>
@@ -34,7 +35,7 @@ class ResetPassword extends React.Component {
 							required
 						/>
 					</FlexFields>
-					<SubmitButtonField>Set password</SubmitButtonField>
+					<SubmitButtonField loading={loading}>Set password</SubmitButtonField>
 				</Form>
 			</FormBox>
 		)
@@ -44,14 +45,15 @@ class ResetPassword extends React.Component {
 export default connect(
 	state => ({
 		initialValues: state.resetPassword,
-		error: state.resetPassword.error
+		error: state.resetPassword.error,
+		loading: state.resetPassword.loading
 	}),
 	dispatch => ({
 		setPassword: password => dispatch({type: SET_PASSWORD, password}),
 		setRepeatPassword: password => dispatch({type: SET_REPEAT_PASSWORD, password}),
 		resetPassword: (ev, token) => {
 			ev.preventDefault()
-			return dispatch(resetPassword(token))
+			return dispatch(resetPassword(token)).then(() => push('/login'))
 		}
 	})
 )(ResetPassword)

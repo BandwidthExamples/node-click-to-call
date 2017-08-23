@@ -23,10 +23,10 @@ export default (state = {}, action) => {
 			return {...state, password: action.password}
 		}
 		case `${LOGIN}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, error: action.error, loading: false}
 		}
 		case `${LOGIN}_START`: {
-			return {...state, error: null}
+			return {...state, error: null, loading: true}
 		}
 		default: {
 			return {...state}

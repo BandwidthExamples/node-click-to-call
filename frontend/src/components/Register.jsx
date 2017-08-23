@@ -5,7 +5,7 @@ import {register, SET_EMAIL, SET_PASSWORD, SET_REPEAT_PASSWORD} from '../store/r
 
 class Register extends React.Component {
 	render() {
-		const {email, password, repeatPassword, setEmail, setPassword, setRepeatPassword, register, error, success} = this.props
+		const {email, password, repeatPassword, setEmail, setPassword, setRepeatPassword, register, error, success, loading} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={register}>
@@ -47,7 +47,7 @@ class Register extends React.Component {
 							required
 						/>
 					</FlexFields>
-					<SubmitButtonField>Register</SubmitButtonField>
+					<SubmitButtonField loading={loading}>Register</SubmitButtonField>
 				</Form>
 				<AnchorField to="/login">Login with existing user</AnchorField>
 			</FormBox>
@@ -59,7 +59,8 @@ export default connect(
 	state => ({
 		initialValues: state.register,
 		error: state.register.error,
-		success: state.register.success
+		success: state.register.success,
+		loading: state.register.loading
 	}),
 	dispatch => ({
 		setEmail: email => dispatch({type: SET_EMAIL, email}),

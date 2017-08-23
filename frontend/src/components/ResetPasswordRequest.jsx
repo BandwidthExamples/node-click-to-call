@@ -5,7 +5,7 @@ import {createResetPasswordRequest, SET_EMAIL} from '../store/resetPasswordReque
 
 class ResetPassword extends React.Component {
 	render() {
-		const {email, setEmail, createResetPasswordRequest, error, success} = this.props
+		const {email, setEmail, createResetPasswordRequest, error, success, loading} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={createResetPasswordRequest}>
@@ -23,7 +23,7 @@ class ResetPassword extends React.Component {
 							required
 						/>
 					</FlexFields>
-					<SubmitButtonField>Create request</SubmitButtonField>
+					<SubmitButtonField loading={loading}>Create request</SubmitButtonField>
 				</Form>
 			</FormBox>
 		)
@@ -34,7 +34,8 @@ export default connect(
 	state => ({
 		initialValues: state.resetPasswordRequest,
 		error: state.resetPasswordRequest.error,
-		success: state.register.success
+		success: state.resetPasswordRequest.success,
+		loading: state.resetPasswordRequest.loading
 	}),
 	dispatch => ({
 		setEmail: email => dispatch({type: SET_EMAIL, email}),

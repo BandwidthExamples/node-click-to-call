@@ -14,13 +14,13 @@ export default (state = {}, action) => {
 			return {...state, email: action.email}
 		}
 		case `${CREATE_RESET_PASSWORD_REQUEST}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, error: action.error, loading: false}
 		}
 		case `${CREATE_RESET_PASSWORD_REQUEST}_START`: {
-			return {...state, error: null}
+			return {...state, error: null, loading: true}
 		}
 		case `${CREATE_RESET_PASSWORD_REQUEST}_SUCCESS`: {
-			return {...state, error: null, success: true}
+			return {...state, error: null, success: true, loading: false}
 		}
 		default: {
 			return {...state}

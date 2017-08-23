@@ -23,13 +23,13 @@ export default (state = {}, action) => {
 			return {...state, repeatPassword: action.password}
 		}
 		case `${REGISTER}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, error: action.error, loading: false}
 		}
 		case `${REGISTER}_START`: {
-			return {...state, error: null}
+			return {...state, error: null, loading: true}
 		}
 		case `${REGISTER}_SUCCESS`: {
-			return {...state, error: null, success: true}
+			return {...state, error: null, success: true, loading: false}
 		}
 		default: {
 			return {...state}

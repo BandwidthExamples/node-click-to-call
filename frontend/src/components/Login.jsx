@@ -6,7 +6,7 @@ import {login, SET_EMAIL, SET_PASSWORD} from '../store/login'
 
 class Login extends React.Component {
 	render() {
-		const {email, password, setEmail, setPassword, login, error} = this.props
+		const {email, password, setEmail, setPassword, login, error, loading} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={login}>
@@ -35,7 +35,7 @@ class Login extends React.Component {
 							required
 						/>
 					</FlexFields>
-					<SubmitButtonField>Login</SubmitButtonField>
+					<SubmitButtonField loading={loading}>Login</SubmitButtonField>
 				</Form>
 				<div>
 					<AnchorField to="/register">Register new user</AnchorField>
@@ -49,7 +49,8 @@ class Login extends React.Component {
 export default connect(
 	state => ({
 		initialValues: state.login,
-		error: state.login.error
+		error: state.login.error,
+		loading: state.login.loading
 	}),
 	dispatch => ({
 		setEmail: email => dispatch({type: SET_EMAIL, email}),

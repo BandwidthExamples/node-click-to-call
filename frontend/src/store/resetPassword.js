@@ -23,10 +23,10 @@ export default (state = {}, action) => {
 			return {...state, repeatPassword: action.password}
 		}
 		case `${RESET_PASSWORD}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, error: action.error, loading: false}
 		}
 		case `${RESET_PASSWORD}_START`: {
-			return {...state, error: null}
+			return {...state, error: null, loading: true}
 		}
 		default: {
 			return {...state}
