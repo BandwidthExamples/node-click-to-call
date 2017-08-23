@@ -1,5 +1,4 @@
 import React from 'react'
-import createHistory from 'history/createBrowserHistory'
 import {Route} from 'react-router'
 import {ConnectedRouter} from 'react-router-redux'
 import {BandwidthThemeProvider, Navigation, Page, Spacing} from '@bandwidth/shared-components'
@@ -9,10 +8,11 @@ import ResetPasswordRequest from './ResetPasswordRequest.jsx'
 import ResetPassword from './ResetPassword.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
+import {history} from '../store/createStore'
 
-const history = createHistory()
 
 export default class App extends React.Component {
+
 	render() {
 		return (
 			<BandwidthThemeProvider>

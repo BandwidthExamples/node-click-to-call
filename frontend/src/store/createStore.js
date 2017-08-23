@@ -6,7 +6,7 @@ import rootReducer from './reducers'
 import logger from 'redux-logger'
 
 // Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory()
+export const history = createHistory()
 
 // Build the middleware for intercepting and dispatching navigation actions
 
@@ -50,8 +50,8 @@ const createStore = (initialState = {}) => {
 			store.replaceReducer(reducers)
 		})
 	}
-
 	return store
 }
+
 
 export default createStore
