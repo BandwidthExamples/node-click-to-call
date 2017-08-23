@@ -9,20 +9,29 @@ import ResetPassword from './ResetPassword.jsx'
 import Login from './Login.jsx'
 import Home from './Home.jsx'
 import {history} from '../store/createStore'
+import {getProfile} from '../store/profile'
+import {connect} from 'react-redux'
 
-
-export default class App extends React.Component {
+class App extends React.Component {
+	componentWillMount() {
+		this.props.getProfile()
+	}
 
 	render() {
+		const links = []
+		if (this.props.profile.id) {
+			links.push({to: '/profile', exact: true, content: 'Profile'})
+			links.push({to: '/logout', exact: true, content: 'Logout'})
+		} else {
+			links.push({to: '/login', exact: true, content: 'Login'})
+		}
 		return (
 			<BandwidthThemeProvider>
 				<ConnectedRouter history={history}>
 					<div>
 						<Navigation
 								title="Click to call"
-								links={[
-									{to: '/login', exact: true, content: 'Login'},
-								]}
+								links={links}
 							/>
 						<Page>
 							<Spacing>
@@ -40,3 +49,11 @@ export default class App extends React.Component {
 	}
 }
 
+export default connect(
+	state => ({
+		profile: state.profile
+	}),
+	dispatch => ({
+		getProfile: password => dispatch(getProfile())
+	})
+)(App)
