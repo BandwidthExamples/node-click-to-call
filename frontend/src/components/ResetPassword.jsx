@@ -5,12 +5,11 @@ import {resetPassword, SET_PASSWORD, SET_REPEAT_PASSWORD} from '../store/resetPa
 
 class ResetPassword extends React.Component {
 	render() {
-		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error, success} = this.props
+		const {setPassword, setRepeatPassword, password, repeatPassword, resetPassword, error} = this.props
 		return (
 			<FormBox>
 				<Form onSubmit={ev => resetPassword(ev, this.props.match.params.token)}>
 					{error && <Alert type="error">{error}</Alert>}
-					{success && <Alert type="success">Request to reset password has been created. Please check your email and follow instructions there.</Alert>}
 					<FlexFields>
 						<TextField
 							label="New Password"

@@ -1,4 +1,5 @@
 import React from 'react'
+import {push} from 'react-router-redux'
 import {Form, FormBox, TextField, FlexFields, SubmitButtonField, Alert, AnchorField} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {login, SET_EMAIL, SET_PASSWORD} from '../store/login'
@@ -55,7 +56,7 @@ export default connect(
 		setPassword: password => dispatch({type: SET_PASSWORD, password}),
 		login: ev => {
 			ev.preventDefault()
-			return dispatch(login())
+			dispatch(login()).then(() => push('/'))
 		}
 	})
 )(Login)

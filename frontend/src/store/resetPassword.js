@@ -28,9 +28,6 @@ export default (state = {}, action) => {
 		case `${RESET_PASSWORD}_START`: {
 			return {...state, error: null}
 		}
-		case `${RESET_PASSWORD}_SUCCESS`: {
-			return {...state, error: null, success: true}
-		}
 		default: {
 			return {...state}
 		}

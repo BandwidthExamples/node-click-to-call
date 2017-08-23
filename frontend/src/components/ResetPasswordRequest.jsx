@@ -33,7 +33,8 @@ class ResetPassword extends React.Component {
 export default connect(
 	state => ({
 		initialValues: state.resetPasswordRequest,
-		error: state.resetPasswordRequest.error
+		error: state.resetPasswordRequest.error,
+		success: state.register.success
 	}),
 	dispatch => ({
 		setEmail: email => dispatch({type: SET_EMAIL, email}),

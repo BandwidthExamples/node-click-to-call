@@ -30,7 +30,7 @@ export default class App extends React.Component {
 								<Route exact path="/login" component={Login}/>
 								<Route exact path="/register" component={Register}/>
 								<Route exact path="/reset-password-request" component={ResetPasswordRequest}/>
-								<Route path="/reset-password/:token" component={ResetPassword}/>
+								<Route exact path="/reset-password/:token" component={ResetPassword}/>
 							</Spacing>
 						</Page>
 					</div>

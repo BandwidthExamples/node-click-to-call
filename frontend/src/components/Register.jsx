@@ -58,7 +58,8 @@ class Register extends React.Component {
 export default connect(
 	state => ({
 		initialValues: state.register,
-		error: state.register.error
+		error: state.register.error,
+		success: state.register.success
 	}),
 	dispatch => ({
 		setEmail: email => dispatch({type: SET_EMAIL, email}),
