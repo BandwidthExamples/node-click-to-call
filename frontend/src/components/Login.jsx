@@ -1,15 +1,14 @@
 import React from 'react'
-import {push} from 'react-router-redux'
 import {Form, FormBox, TextField, FlexFields, SubmitButtonField, Alert, AnchorField} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {login, SET_EMAIL, SET_PASSWORD} from '../store/login'
 
 class Login extends React.Component {
 	render() {
-		const {email, password, setEmail, setPassword, login, error, loading} = this.props
+		const {email, password, setEmail, setPassword, login, error, loading, history} = this.props
 		return (
 			<FormBox>
-				<Form onSubmit={login}>
+				<Form onSubmit={ev => login(ev).then(() => history.push('/'))}>
 					{error && <Alert type="error">{error}</Alert>}
 					<FlexFields>
 						<TextField
@@ -57,7 +56,7 @@ export default connect(
 		setPassword: password => dispatch({type: SET_PASSWORD, password}),
 		login: ev => {
 			ev.preventDefault()
-			dispatch(login()).then(() => push('/'))
+			return dispatch(login())
 		}
 	})
 )(Login)
