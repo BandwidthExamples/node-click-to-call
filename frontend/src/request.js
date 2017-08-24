@@ -15,7 +15,7 @@ export default function request(action, path, method='GET', stateName='', option
 			dispatch({type: `${action}_SUCCESS`, result: await checkResponse(r)})
 		} catch (err) {
 			dispatch({type: `${action}_ERROR`, error: err.message})
-			// throw err
+			throw err
 		}
 	}
 }
