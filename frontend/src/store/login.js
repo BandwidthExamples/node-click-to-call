@@ -28,6 +28,9 @@ export default (state = {}, action) => {
 		case `${LOGIN}_START`: {
 			return {...state, error: null, loading: true}
 		}
+		case `${LOGIN}_SUCCESS`: {
+			return {...state, error: null, loading: false}
+		}
 		default: {
 			return {...state}
 		}

@@ -10,6 +10,7 @@ import Login from './Login.jsx'
 import Home from './Home.jsx'
 import {history} from '../store/createStore'
 import {getProfile} from '../store/profile'
+import {logout} from '../store/login'
 import {connect} from 'react-redux'
 
 class App extends React.Component {
@@ -21,7 +22,10 @@ class App extends React.Component {
 		const links = []
 		if (this.props.profile.id) {
 			links.push({to: '/profile', exact: true, content: 'Profile'})
-			links.push({to: '/logout', exact: true, content: 'Logout'})
+			links.push({to: '#', content: 'Logout', onClick: ev => {
+				this.props.logout().then(() => this.props.getProfile()).then(() => history.push('/login'))
+				ev.preventDefault()
+			}})
 		} else {
 			links.push({to: '/login', exact: true, content: 'Login'})
 		}
@@ -37,6 +41,7 @@ class App extends React.Component {
 							<Spacing>
 								<Route exact path="/" component={Home}/>
 								<Route exact path="/login" component={Login}/>
+								<Route exact path="/logout" component={Login}/>
 								<Route exact path="/register" component={Register}/>
 								<Route exact path="/reset-password-request" component={ResetPasswordRequest}/>
 								<Route exact path="/reset-password/:token" component={ResetPassword}/>
@@ -54,6 +59,7 @@ export default connect(
 		profile: state.profile
 	}),
 	dispatch => ({
-		getProfile: password => dispatch(getProfile())
+		getProfile: password => dispatch(getProfile()),
+		logout: () => dispatch(logout())
 	})
 )(App)

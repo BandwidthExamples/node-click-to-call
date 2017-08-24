@@ -9,7 +9,7 @@ export function getProfile() {
 export default (state = {}, action) => {
 	switch (action.type) {
 		case `${GET_PROFILE}_SUCCESS`: {
-			return {...state, ...action.result}
+			return action.result
 		}
 		default: {
 			return {...state}
