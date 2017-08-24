@@ -19,7 +19,7 @@ export function getProfile() {
 export default (state = {}, action) => {
 	switch (action.type) {
 		case `${GET_PROFILE}_SUCCESS`: {
-			return action.result
+			return {...action.result, loaded: true}
 		}
 		case SET_OLD_PASSWORD: {
 			return {...state, oldPassword: action.password}

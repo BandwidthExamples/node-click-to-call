@@ -10,7 +10,7 @@ class Login extends React.Component {
 		const {email, password, setEmail, setPassword, login, error, loading, history} = this.props
 		return (
 			<FormBox>
-				<Form onSubmit={ev => login(ev).then(() => history.push('/'))}>
+				<Form onSubmit={ev => login(ev).then(() => history.push('/buttons'))}>
 					{error && <Alert type="error">{error}</Alert>}
 					<FlexFields>
 						<TextField
