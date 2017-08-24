@@ -3,9 +3,15 @@ export default function request(action, path, method='GET', stateName='', option
 		dispatch({type: `${action}_START`})
 		options.credentials = 'same-origin'
 		if (stateName) {
-			const state = getState()
-			if (state[stateName]) {
-				options.body = JSON.stringify(state[stateName]);
+			let state = getState()
+			stateName.split('.').forEach(name => {
+				const s = state[name]
+				if (s) {
+					state = s
+				}
+			})
+			if (state) {
+				options.body = JSON.stringify(state);
 				options.headers = options.headers || {}
 				options.headers['Content-Type'] = 'application/json'
 			}
