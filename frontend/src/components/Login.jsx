@@ -49,7 +49,8 @@ class Login extends React.Component {
 
 export default connect(
 	state => ({
-		initialValues: state.login,
+		email: state.login.email,
+		password: state.login.password,
 		error: state.login.error,
 		loading: state.login.loading
 	}),

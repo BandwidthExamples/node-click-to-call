@@ -57,7 +57,9 @@ class Register extends React.Component {
 
 export default connect(
 	state => ({
-		initialValues: state.register,
+		email: state.register.email,
+		password: state.register.password,
+		repeatPassword: state.register.repeatPassword,
 		error: state.register.error,
 		success: state.register.success,
 		loading: state.register.loading

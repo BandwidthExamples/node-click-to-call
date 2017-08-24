@@ -29,7 +29,7 @@ export default (state = {}, action) => {
 			return {...state, error: null, loading: true}
 		}
 		case `${LOGIN}_SUCCESS`: {
-			return {...state, error: null, loading: false}
+			return {...state, error: null, loading: false, password: ''}
 		}
 		default: {
 			return {...state}

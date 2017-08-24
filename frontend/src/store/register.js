@@ -29,7 +29,7 @@ export default (state = {}, action) => {
 			return {...state, error: null, loading: true}
 		}
 		case `${REGISTER}_SUCCESS`: {
-			return {...state, error: null, success: true, loading: false}
+			return {error: null, success: true, loading: false}
 		}
 		default: {
 			return {...state}
