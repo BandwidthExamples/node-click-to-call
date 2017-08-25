@@ -4,6 +4,8 @@ export const GET_BUTTONS = 'BUTTONS/GET_BUTTONS'
 export const CREATE_BUTTON = 'BUTTONS/CREATE_BUTTON'
 export const REMOVE_BUTTON = 'BUTTONS/REMOVE_BUTTON'
 export const TOGGLE_BUTTON = 'BUTTONS/TOGGLE_BUTTON'
+export const SORT_COLUMN = 'BUTTONS/SORT_COLUMN'
+export const SET_BUTTON_ID = 'BUTTONS/SET_BUTTON_ID'
 
 export const SET_NUMBER = 'BUTTONS/SET_NUMBER'
 
@@ -35,38 +37,46 @@ export default function (state = {}, action) {
 			return {...state, error: null, loading: true}
 		}
 		case `${CREATE_BUTTON}_SUCCESS`: {
-			return {...state, error: null, loading: false, success: true, createButton: {}}
+			return {...state, error: null, loading: false, success: true}
 		}
 		case `${GET_BUTTONS}_ERROR`: {
 			return {...state, error: action.error, loading: false}
 		}
 		case `${GET_BUTTONS}_START`: {
-			return {...state, error: null, loading: true}
+			return {...state, error: null, loading: true, createButton: {}}
 		}
 		case `${GET_BUTTONS}_SUCCESS`: {
 			return {...state, error: null, loading: false, buttons: action.buttons}
 		}
 		case `${REMOVE_BUTTON}_START`: {
-			return {...state, error: null, removingId: action.id}
+			return {...state, error: null}
 		}
 		case `${REMOVE_BUTTON}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, id: null, error: action.error}
 		}
 		case `${REMOVE_BUTTON}_SUCCESS`: {
-			const {removingId, buttons} = state
-			return {...state, error: null, removingId: null, buttons: buttons.filter(b => b.id !== removingId)}
+			const {id, buttons} = state
+			return {...state, error: null, id: null, buttons: buttons.filter(b => b.id !== id)}
 		}
 		case `${TOGGLE_BUTTON}_START`: {
-			return {...state, error: null, toggleId: action.id, updateButton: {enabled: !(state.buttons.filter(b => b.id === action.id)[0]).enabled}}
+			return {...state, error: null, updateButton: {enabled: !(state.buttons.filter(b => b.id === state.id)[0]).enabled}}
 		}
 		case `${TOGGLE_BUTTON}_ERROR`: {
-			return {...state, error: action.error}
+			return {...state, id: null, error: action.error}
 		}
 		case `${TOGGLE_BUTTON}_SUCCESS`: {
-			const {toggleId, buttons} = state
-			const button = buttons.filter(b => b.id === toggleId)[0]
+			const {id, buttons} = state
+			const button = buttons.filter(b => b.id === id)[0]
 			button.enabled = !button.enabled
-			return {...state, error: null, toggleId: null, updateButton: null, buttons}
+			return {...state, error: null, id: null, updateButton: null, buttons}
+		}
+		case SORT_COLUMN: {
+			const {buttons} = state
+			buttons.sort((a, b) => a[action.column].toString().localeCompare(b[action.column].toString()))
+			return {...state, buttons}
+		}
+		case SET_BUTTON_ID: {
+			return {...state, id: action.id}
 		}
 		default: {
 			return {...state}
