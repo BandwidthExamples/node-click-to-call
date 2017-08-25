@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, FormBox, Form, FlexFields, TextField, SubmitButtonField} from '@bandwidth/shared-components'
+import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
-import {toggleButton, removeButton, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
+import {toggleButton, removeButton, getButtons, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
 
 class Buttons extends React.Component {
 	columns = [
@@ -13,7 +13,7 @@ class Buttons extends React.Component {
 	]
 
 	renderRow(item) {
-		return (<Table.Row>
+		return (<Table.Row key={item.id}>
 			<Table.Cell>{item.number}</Table.Cell>
 			<Table.Cell><Toggle value={item.enabled} onChange={() => this.props.toggleButton(item.id)}/></Table.Cell>
 			<Table.Cell>{moment(item.createdAt).format('LLL')}</Table.Cell>
@@ -21,29 +21,32 @@ class Buttons extends React.Component {
 		</Table.Row>)
 	}
 
+	componentWillMount() {
+		// this.props.getButtons()
+	}
+
 	render() {
-		const {error, loading, number, createButton, setNumber, buttons, handleSortChanged} = this.props
+		const {error, loading, creating, createButtonNumber, createButton, setNumber, getButtons, buttons, handleSortChanged} = this.props
 		return (
 			<Spacing>
 				{error && <Alert type="error">{error}</Alert>}
-				<FormBox>
-					<Form onSubmit={ev => createButton(ev)}>
-						<FlexFields>
-							<TextField
-								label="Phone Number"
-								name="number"
-								type="tel"
-								input={{
-									value: number,
-									onChange: ev => setNumber(ev.target.value)
-								}}
-								required
-							/>
-						</FlexFields>
-						<SubmitButtonField loading={loading}>Create button</SubmitButtonField>
-					</Form>
-				</FormBox>
-				<Table.Simple items={buttons} columns={this.columns} renderRow={this.renderRow} onSortChanged={handleSortChanged}>
+				<Form onSubmit={ev => createButton(ev)}>
+					<FlexFields>
+						<TextField
+							label="Phone Number"
+							name="number"
+							type="tel"
+							input={{
+								value: createButtonNumber,
+								onChange: ev => setNumber(ev.target.value)
+							}}
+							required
+						/>
+					</FlexFields>
+					<SubmitButtonField loading={creating}>Create button</SubmitButtonField>
+				</Form>
+				<Spacing/>
+				<Table.Simple items={buttons} columns={this.columns} renderRow={this.renderRow} onSortChanged={handleSortChanged} loading={loading}>
 				</Table.Simple>
 			</Spacing>
 		)
@@ -52,10 +55,11 @@ class Buttons extends React.Component {
 
 export default connect(
 	state => ({
-		buttons: state.buttons.buttons,
-		number: (state.buttons.createButton || {}).number,
+		buttons: state.buttons.buttons || [],
+		createButtonNumber: state.buttons.createButtonNumber,
 		error: state.buttons.error,
-		loading: state.buttons.loading
+		loading: state.buttons.loading,
+		creating: state.buttons.creating
 	}),
 	dispatch => ({
 		toggleButton: id => {
@@ -69,6 +73,7 @@ export default connect(
 		setNumber: number => {
 			dispatch({type: SET_NUMBER, number})
 		},
+		getButtons: () => dispatch(getButtons()),
 		handleSortChanged: (column, sortOrder) => dispatch({type: SORT_COLUMN, column, sortOrder})
 	})
 )(Buttons)

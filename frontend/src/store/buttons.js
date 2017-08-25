@@ -10,7 +10,7 @@ export const SET_BUTTON_ID = 'BUTTONS/SET_BUTTON_ID'
 export const SET_NUMBER = 'BUTTONS/SET_NUMBER'
 
 export function getButtons() {
-	return request(GET_BUTTONS, `/buttons`, 'GET', 'buttons')
+	return request(GET_BUTTONS, `/buttons`, 'GET')
 }
 
 export function createButton() {
@@ -28,25 +28,25 @@ export function removeButton(id) {
 export default function (state = {}, action) {
 	switch (action.type) {
 		case SET_NUMBER: {
-			return {...state, createButton: {number: action.number}}
+			return {...state, createButtonNumber: action.number}
 		}
 		case `${CREATE_BUTTON}_ERROR`: {
-			return {...state, error: action.error, loading: false}
+			return {...state, error: action.error, creating: false}
 		}
 		case `${CREATE_BUTTON}_START`: {
-			return {...state, error: null, loading: true}
+			return {...state, error: null, creating: true, createButton: {number: state.createButtonNumber}}
 		}
 		case `${CREATE_BUTTON}_SUCCESS`: {
-			return {...state, error: null, loading: false, success: true}
+			return {...state, error: null, creating: false, success: true}
 		}
 		case `${GET_BUTTONS}_ERROR`: {
 			return {...state, error: action.error, loading: false}
 		}
 		case `${GET_BUTTONS}_START`: {
-			return {...state, error: null, loading: true, createButton: {}}
+			return {...state, error: null, loading: true, createButton: {}, buttons: []}
 		}
 		case `${GET_BUTTONS}_SUCCESS`: {
-			return {...state, error: null, loading: false, buttons: action.buttons}
+			return {...state, error: null, loading: false, buttons: action.buttons || []}
 		}
 		case `${REMOVE_BUTTON}_START`: {
 			return {...state, error: null}
@@ -71,8 +71,8 @@ export default function (state = {}, action) {
 			return {...state, error: null, id: null, updateButton: null, buttons}
 		}
 		case SORT_COLUMN: {
-			const {buttons} = state
-			buttons.sort((a, b) => a[action.column].toString().localeCompare(b[action.column].toString()))
+			const buttons = state.buttons || []
+			buttons.sort((a, b) => a[action.column].toString().localeCompare(b[action.column].toString()) * action.sortOrder)
 			return {...state, buttons}
 		}
 		case SET_BUTTON_ID: {

@@ -63,14 +63,14 @@ class App extends React.Component {
 							/>
 						<Page>
 							<Spacing>
-								<Redirect from="/" to="/buttons"/>
+								<Redirect from="/" to="/click-to-call-buttons"/>
 								<Route exact path="/login" component={Login}/>
 								<Route exact path="/logout" component={Login}/>
 								<Route exact path="/register" component={Register}/>
 								<Route exact path="/my-profile" component={Profile}/>
 								<Route exact path="/reset-password-request" component={ResetPasswordRequest}/>
 								<Route exact path="/reset-password/:token" component={ResetPassword}/>
-								<PrivateRoute path="/buttons" component={Buttons}/>
+								<PrivateRoute path="/click-to-call-buttons" component={Buttons}/>
 							</Spacing>
 						</Page>
 					</div>
