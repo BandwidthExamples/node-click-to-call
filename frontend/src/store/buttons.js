@@ -57,7 +57,7 @@ export default function (state = {}, action) {
 			return {...state, error: null, removingId: null, buttons: buttons.filter(b => b.id !== removingId)}
 		}
 		case `${TOGGLE_BUTTON}_START`: {
-			return {...state, error: null, toggleId: action.id, updateButton: {enabled: !(state.buttons.filter(b.id === action.id)[0]).enabled}}
+			return {...state, error: null, toggleId: action.id, updateButton: {enabled: !(state.buttons.filter(b => b.id === action.id)[0]).enabled}}
 		}
 		case `${TOGGLE_BUTTON}_ERROR`: {
 			return {...state, error: action.error}
