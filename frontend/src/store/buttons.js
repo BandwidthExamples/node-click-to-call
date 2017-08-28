@@ -59,7 +59,8 @@ export default function (state = {}, action) {
 		}
 		case `${REMOVE_BUTTON}_SUCCESS`: {
 			const {id, buttons} = state
-			return {...state, error: null, id: null, buttons: buttons.filter(b => b.id !== id)}
+			buttons.filter(b => b.id === id).deleted = true
+			return {...state, error: null, id: null, buttons}
 		}
 		case `${TOGGLE_BUTTON}_START`: {
 			return {...state, error: null, updateButton: {enabled: !(state.buttons.filter(b => b.id === state.id)[0]).enabled}}
@@ -76,6 +77,7 @@ export default function (state = {}, action) {
 		case SORT_COLUMN: {
 			const buttons = state.buttons || []
 			buttons.sort((a, b) => a[action.column].toString().localeCompare(b[action.column].toString()) * action.sortOrder)
+			buttons.sort((a, b) => a.deleted ? 1: -1)
 			return {...state, buttons}
 		}
 		case SET_BUTTON_ID: {

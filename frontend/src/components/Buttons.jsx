@@ -17,11 +17,11 @@ class Buttons extends React.Component {
 	}
 
 	renderRow(item) {
-		return (<Table.Row key={item.id} className={item.isNew && "new-row"}>
+		return (<Table.Row key={item.id} className={item.deleted ? 'deleted' : ''}>
 			<Table.Cell>{item.number}</Table.Cell>
-			<Table.Cell><Toggle value={item.enabled} onChange={() => this.props.toggleButton(item.id)}/></Table.Cell>
+			<Table.Cell>{!item.deleted && (<Toggle value={item.enabled} onChange={() => this.props.toggleButton(item.id)}/>)}</Table.Cell>
 			<Table.Cell>{moment(item.createdAt).format('LLL')}</Table.Cell>
-			<Table.Cell><Button onClick={() => this.props.removeButton(item.id)}>Remove</Button></Table.Cell>
+			<Table.Cell>{!item.deleted && (<Button onClick={() => this.props.removeButton(item.id)}>Remove</Button>)}</Table.Cell>
 		</Table.Row>)
 	}
 
@@ -68,8 +68,10 @@ export default connect(
 			dispatch(toggleButton(id))
 		},
 		removeButton: id => {
-			dispatch({type: SET_BUTTON_ID, id: id})
-			dispatch(removeButton(id))
+			if (window.confirm('Are you sure?')) {
+				dispatch({type: SET_BUTTON_ID, id: id})
+				dispatch(removeButton(id))
+			}
 		},
 		setNumber: number => {
 			dispatch({type: SET_NUMBER, number})
