@@ -16,14 +16,8 @@ export default function request(action, path, method='GET', stateName='', option
 				options.headers['Content-Type'] = 'application/json'
 			}
 		}
-		if (path === '/buttons') {
-			debugger
-		}
 		try {
 			const r = await fetch(path, {method, ...options})
-			if (path === '/buttons') {
-				console.log(r)
-			}
 			dispatch({type: `${action}_SUCCESS`, result: await checkResponse(r)})
 		} catch (err) {
 			dispatch({type: `${action}_ERROR`, error: err.message})
