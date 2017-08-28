@@ -20,30 +20,12 @@ class App extends React.Component {
 		this.props.getProfile()
 	}
 
-	PrivateRoute({ component: Component, ...rest }) {
-		const isLoggedIn = this.props.profile.id
-		return (
-			<Route {...rest} render={props => {
-				return (
-				isLoggedIn ? (
-					<Component {...props}/>
-				) : (
-					<Redirect to={{
-						pathname: '/login',
-						state: { from: props.location }
-					}}/>
-				)
-			)}}/>
-		)
-	}
-
 	render() {
 		if (!this.props.profile.loaded) {
 			return (null)
 		}
 		const links = []
 		const isLoggedIn = this.props.profile.id
-		const PrivateRoute = this.PrivateRoute.bind(this)
 		if (isLoggedIn) {
 			links.push({to: '/my-profile', exact: true, content: 'Profile'})
 			links.push({to: '#', content: 'Logout', onClick: ev => {
