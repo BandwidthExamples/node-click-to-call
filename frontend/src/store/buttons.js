@@ -37,7 +37,10 @@ export default function (state = {}, action) {
 			return {...state, error: null, creating: true, createButton: {number: state.createButtonNumber}}
 		}
 		case `${CREATE_BUTTON}_SUCCESS`: {
-			return {...state, error: null, creating: false, success: true}
+			const {buttons} = state
+			action.result.isNew = true
+			buttons.unshift(action.result)
+			return {...state, error: null, creating: false, success: true, buttons}
 		}
 		case `${GET_BUTTONS}_ERROR`: {
 			return {...state, error: action.error, loading: false}
@@ -46,7 +49,7 @@ export default function (state = {}, action) {
 			return {...state, error: null, loading: true, createButton: {}, buttons: []}
 		}
 		case `${GET_BUTTONS}_SUCCESS`: {
-			return {...state, error: null, loading: false, buttons: action.buttons || []}
+			return {...state, error: null, loading: false, buttons: action.result || []}
 		}
 		case `${REMOVE_BUTTON}_START`: {
 			return {...state, error: null}

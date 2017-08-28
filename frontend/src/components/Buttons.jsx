@@ -17,7 +17,7 @@ class Buttons extends React.Component {
 	}
 
 	renderRow(item) {
-		return (<Table.Row key={item.id}>
+		return (<Table.Row key={item.id} className={item.isNew && "new-row"}>
 			<Table.Cell>{item.number}</Table.Cell>
 			<Table.Cell><Toggle value={item.enabled} onChange={() => this.props.toggleButton(item.id)}/></Table.Cell>
 			<Table.Cell>{moment(item.createdAt).format('LLL')}</Table.Cell>
@@ -74,7 +74,10 @@ export default connect(
 			dispatch({type: SET_NUMBER, number})
 		},
 		getButtons: () => dispatch(getButtons()),
-		createButton: () => dispatch(createButton()),
+		createButton: ev => {
+			ev.preventDefault()
+			dispatch(createButton())
+		},
 		handleSortChanged: (column, sortOrder) => dispatch({type: SORT_COLUMN, column, sortOrder})
 	})
 )(Buttons)
