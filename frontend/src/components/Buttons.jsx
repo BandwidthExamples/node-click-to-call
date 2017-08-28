@@ -1,8 +1,14 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField} from '@bandwidth/shared-components'
+import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {toggleButton, removeButton, getButtons, createButton, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
+
+const escape = document.createElement('textarea')
+function escapeHTML(html) {
+    escape.textContent = html
+    return escape.innerHTML
+}
 
 class Buttons extends React.Component {
 	columns = [
@@ -25,9 +31,29 @@ class Buttons extends React.Component {
 		</Table.Row>)
 	}
 
+	renderDetails(item) {
+		if (item.deleted) {
+			return null
+		}
+		const script = escapeHTML(`<script src="${window.location.origin}/click.js"></script>`)
+		const link = escapeHTML(`<a class="click-to-call" data-id="${item.id}" href="#">Call</a>`)
+		const button = escapeHTML(`<button class="click-to-call" data-id="${item.id}">Call</button>`)
+		return (
+			<Spacing>
+				<p>Add this script to you page</p>
+				<Code dangerouslySetInnerHTML={{__html: script}}></Code>
+				<p>Then add code of next link/button where you need on your page</p>
+				<h5>Link code</h5>
+				<Code dangerouslySetInnerHTML={{__html: link}}></Code>
+				<h5>Button code</h5>
+				<Code dangerouslySetInnerHTML={{__html: button}}></Code>
+			</Spacing>)
+	}
+
 	render() {
 		const {error, loading, creating, createButtonNumber, createButton, setNumber, buttons, handleSortChanged} = this.props
 		const renderRow = this.renderRow.bind(this)
+		const renderDetails = this.renderDetails.bind(this)
 		return (
 			<Spacing>
 				{error && <Alert type="error">{error}</Alert>}
@@ -47,7 +73,7 @@ class Buttons extends React.Component {
 					<SubmitButtonField loading={creating}>Create button</SubmitButtonField>
 				</Form>
 				<Spacing/>
-				<Table.Simple items={buttons} columns={this.columns} renderRow={renderRow} onSortChanged={handleSortChanged} loading={loading}>
+				<Table.Simple items={buttons} columns={this.columns} renderRow={renderRow} renderDetails={renderDetails} onSortChanged={handleSortChanged} loading={loading}>
 				</Table.Simple>
 			</Spacing>
 		)
