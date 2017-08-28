@@ -27,6 +27,7 @@ class Buttons extends React.Component {
 
 	render() {
 		const {error, loading, creating, createButtonNumber, createButton, setNumber, buttons, handleSortChanged} = this.props
+		const renderRow = this.renderRow.bind(this)
 		return (
 			<Spacing>
 				{error && <Alert type="error">{error}</Alert>}
@@ -46,7 +47,7 @@ class Buttons extends React.Component {
 					<SubmitButtonField loading={creating}>Create button</SubmitButtonField>
 				</Form>
 				<Spacing/>
-				<Table.Simple items={buttons} columns={this.columns} renderRow={this.renderRow} onSortChanged={handleSortChanged} loading={loading}>
+				<Table.Simple items={buttons} columns={this.columns} renderRow={renderRow} onSortChanged={handleSortChanged} loading={loading}>
 				</Table.Simple>
 			</Spacing>
 		)
