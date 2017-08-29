@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 
 import createStore from './store/createStore'
+import {UPDATE_CALL} from './store/calls'
 
 const store = createStore(window.__INITIAL_STATE__)
 
@@ -20,6 +21,15 @@ let render = () => {
 		</Provider>),
 		MOUNT_NODE
 	)
+}
+
+const source = new EventSource('/buttons/sse');
+source.onmessage = event => {
+	const state = store.getState()
+	const call = JSON.parse(event.data)
+	if (call.button === state.calls.buttonId) {
+		store.dispatch({type: UPDATE_CALL, call})
+	}
 }
 
 // Development Tools
