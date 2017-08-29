@@ -1,4 +1,6 @@
 import request from '../request'
+import {UPDATE_CALL} from './calls'
+
 
 export const GET_PROFILE = 'PROFILE/GET_PROFILE'
 export const SAVE_PROFILE = 'PROFILE/SAVE_PROFILE'
@@ -11,9 +13,29 @@ export function saveProfile() {
 	return request(SAVE_PROFILE, `/profile`, 'POST', 'profile')
 }
 
+let source = null
 
 export function getProfile() {
-	return request(GET_PROFILE, '/profile')
+	return async (dispatch, getState) => {
+		if (source) {
+			source.close()
+			source = null
+		}
+		await dispatch(request(GET_PROFILE, '/profile'))
+		const state = getState()
+		if (state.profile.id) {
+			if (window.EventSource) {
+				source = new window.EventSource(`/buttons/sse?id=${state.profile.id}`);
+				source.onmessage = event => {
+					const state = getState()
+					const call = JSON.parse(event.data)
+					if (call.button === state.calls.buttonId) {
+						dispatch({type: UPDATE_CALL, call})
+					}
+				}
+			}
+		}
+	}
 }
 
 export default (state = {}, action) => {

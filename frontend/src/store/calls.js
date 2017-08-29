@@ -37,7 +37,7 @@ export default function (state = {}, action) {
 			}
 			const calls = state.calls || []
 			const {call} = action
-			let i =0
+			let i = 0
 			for(i = 0; i < calls.length; i ++) {
 				if (calls[i].id === call.id) {
 					calls.splice(i, 1, call)
