@@ -23,12 +23,14 @@ let render = () => {
 	)
 }
 
-const source = new EventSource('/buttons/sse');
-source.onmessage = event => {
-	const state = store.getState()
-	const call = JSON.parse(event.data)
-	if (call.button === state.calls.buttonId) {
-		store.dispatch({type: UPDATE_CALL, call})
+if (window.EventSource) {
+	const source = new window.EventSource('/buttons/sse');
+	source.onmessage = event => {
+		const state = store.getState()
+		const call = JSON.parse(event.data)
+		if (call.button === state.calls.buttonId) {
+			store.dispatch({type: UPDATE_CALL, call})
+		}
 	}
 }
 

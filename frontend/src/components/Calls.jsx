@@ -1,8 +1,9 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code} from '@bandwidth/shared-components'
+import {Table, Spacing, Alert, Pagination, Button} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
-import {getCalls, SET_PAGE} from '../store/calls'
+import {goBack} from 'react-router-redux'
+import {getCalls, SET_PAGE, SET_BUTTON_ID} from '../store/calls'
 
 class Calls extends React.Component {
 	columns = [
@@ -13,7 +14,7 @@ class Calls extends React.Component {
 	]
 
 	componentWillMount() {
-		this.props.getCalls()
+		this.props.getCalls(this.props.match.params.id)
 	}
 
 	renderRow(item) {
@@ -40,16 +41,19 @@ class Calls extends React.Component {
 	}
 
 	render() {
-		const {error, loading, creating, calls, page, pageCount, pageSelected} = this.props
+		const {error, loading, calls, page, pageCount, pageSelected, goBack} = this.props
 		const renderRow = this.renderRow.bind(this)
 		const renderDetails = this.renderDetails.bind(this)
-		const pageSelected = this.pageSelected.bind(this)
 		return (
 			<Spacing>
+				<h2>Calls</h2>
 				{error && <Alert type="error">{error}</Alert>}
 				<Table.Simple items={calls} columns={this.columns} renderRow={renderRow} renderDetails={renderDetails} loading={loading}>
 				</Table.Simple>
 				{pageCount > 0 && !loading && (<Pagination pageCount={pageCount} page={page-1} onPageSelected={pageSelected} />)}
+				<p>
+					<Button onClick={goBack}>Back</Button>
+				</p>
 			</Spacing>
 		)
 	}
@@ -64,10 +68,14 @@ export default connect(
 		pageCount: state.calls.pageCount
 	}),
 	dispatch => ({
-		getCalls: () => dispatch(getCalls()),
+		getCalls: (id) => {
+			dispatch({type: SET_BUTTON_ID, id })
+			dispatch(getCalls())
+		},
 		pageSelected: page => {
 			dispatch({type: SET_PAGE, page: page + 1 })
 			dispatch(getCalls())
-		}
+		},
+		goBack: () => dispatch(goBack())
 	})
 )(Calls)

@@ -6,6 +6,7 @@ import resetPasswordRequestReducer from './resetPasswordRequest'
 import resetPasswordReducer from './resetPassword'
 import profileReducer from './profile'
 import buttonsReducer from './buttons'
+import callsReducer from './calls'
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
 	resetPasswordRequest: resetPasswordRequestReducer,
 	resetPassword: resetPasswordReducer,
 	profile: profileReducer,
-	buttons: buttonsReducer
+	buttons: buttonsReducer,
+	calls: callsReducer
 });

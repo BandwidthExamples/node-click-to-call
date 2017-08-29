@@ -1,8 +1,11 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code} from '@bandwidth/shared-components'
+import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code, secondaryTheme} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 import {toggleButton, removeButton, getButtons, createButton, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
+
+console.log(secondaryTheme)
 
 const escape = document.createElement('textarea')
 function escapeHTML(html) {
@@ -27,7 +30,7 @@ class Buttons extends React.Component {
 			<Table.Cell>{item.number}</Table.Cell>
 			<Table.Cell>{!item.deleted && (<Toggle value={item.enabled} onChange={() => this.props.toggleButton(item.id)}/>)}</Table.Cell>
 			<Table.Cell>{moment(item.createdAt).format('LLL')}</Table.Cell>
-			<Table.Cell>{!item.deleted && (<Button onClick={() => this.props.removeButton(item.id)}>Remove</Button>)}</Table.Cell>
+			<Table.Cell>{!item.deleted && (<Button onClick={ev => this.props.removeButton(ev, item.id)}>Remove</Button>)}<Button onClick={ev => this.props.showCalls(ev, item.id)}>Calls</Button></Table.Cell>
 		</Table.Row>)
 	}
 
@@ -93,7 +96,8 @@ export default connect(
 			dispatch({type: SET_BUTTON_ID, id: id})
 			dispatch(toggleButton(id))
 		},
-		removeButton: id => {
+		removeButton: (ev, id) => {
+			ev.preventDefault()
 			if (window.confirm('Are you sure?')) {
 				dispatch({type: SET_BUTTON_ID, id: id})
 				dispatch(removeButton(id))
@@ -107,6 +111,10 @@ export default connect(
 			ev.preventDefault()
 			dispatch(createButton())
 		},
-		handleSortChanged: (column, sortOrder) => dispatch({type: SORT_COLUMN, column, sortOrder})
+		handleSortChanged: (column, sortOrder) => dispatch({type: SORT_COLUMN, column, sortOrder}),
+		showCalls: (ev, id) => {
+			ev.preventDefault()
+			dispatch(push(`/calls/${id}`))
+		}
 	})
 )(Buttons)
