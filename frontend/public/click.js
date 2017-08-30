@@ -65,7 +65,7 @@
 		var socket = new JsSIP.WebSocketInterface('wss://webrtc.registration.bandwidth.com:10443')
 
 		var authHeader = 'X-Callsign-Token: ' + authToken
-		var buttonHeader = 'X-Button-Id: ' + id
+		var buttonHeader = 'X-TRACKING-ID: ' + id
 
 		var callOptions = {
 			extraHeaders: [authHeader, buttonHeader],
