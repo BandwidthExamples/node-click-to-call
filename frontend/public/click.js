@@ -26,7 +26,9 @@
 	}
 	var getFetch = function() { return typeof window.fetch === 'function' ? Promise.resolve(window.fetch) : loadJS('https://unpkg.com/whatwg-fetch') }
 	var getJSSip = function() { return typeof window.JsSIP !== 'undefined' ? Promise.resolve(window.JsSIP) : loadJS('https://unpkg.com/jssip@3.0.13/dist/jssip.min.js') }
-	var prepare = function(el) {
+	var remoteAudio = new window.Audio();
+	remoteAudio.autoplay = true;
+	var prepare = function(el, options={}) {
 		getFetch()
 			.then(getDetectRTC)
 			.then(getJSSip)
@@ -43,18 +45,19 @@
 				el.addEventListener('click', function(ev) {
 					ev.preventDefault()
 					var id = ev.target.dataset.id
-					fetch('/buttons/' + id + '/click', {method: 'POST', mode: 'cors'})
+					var url = document.currentScript.src.replace('/click.js', '/buttons/' + id + '/click')
+					fetch(url, {method: 'POST', mode: 'cors'})
 						.then(function(r) {
 							if (r.error) {
 								throw new Error(r.error)
 							}
 							return r.json()
 						})
-						.then(makeCall)
+						.then(makeCall, options)
 				}, false)
 			})
 	}
-	var makeCall = function (data) {
+	var makeCall = function (data, options) {
 		var id = data.id
 		var authToken = data.token
 		var sipUri = data.sipUri
@@ -85,16 +88,54 @@
 			bwPhone.register()
 		})
 
-		var finish = function () {
-			bwPhone.unregister({all: true})
-		};
-
 		bwPhone.on('registered', function(){
 			bwPhone.call(number, callOptions)
 		})
 
 		bwPhone.on("newRTCSession", function(data){
 			var session = data.session;
+			session.on('peerconnection', function(data) {
+				data.peerconnection.addEventListener('addstream', function(e){
+					remoteAudio.src = window.URL.createObjectURL(e.stream)
+				})
+			})
+			var callProgress = null
+			session.on('progress', function(){
+				if (typeof options.showCallProgress === 'function') {
+					options.showCallProgress({
+						number,
+						hangup: function(){
+							session.terminate({extraHeaders: [authHeader, buttonHeader]})
+						}
+					})
+				} else {
+					callProgress = document.createElement('div')
+					callProgress.style = 'z-index: 999; position: position: absolute; margin: auto; width: 50%; padding: 50px; left: 0; top: 50px;'
+					callProgress.innerHTML = '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">' +
+					'<style>' +
+					'.c2c-phone-number{text-align: center; font-weight: bold;}' +
+					'.c2c-connect-call{color: #FFF; background-color: #389400; width: 50px; height: 50px; text-align: center; font-size: 30px; margin: 10px 0px 10px 0px; border-radius: 25px 25px 25px 25px; -moz-border-radius: 25px 25px 25px 25px; -webkit-border-radius: 25px 25px 25px 25px; cursor: pointer; cursor: hand;}' +
+					'</style>' +
+					'<div class"c2c-phone-number">' + number + '</div><div class"c2c-connect-call"><i class="fa fa-phone"></i></div>'
+					var hangupButton = callProgress.getElementsByClassName('c2c-connect-call')[0]
+					hangupButton.addEventListener('click', function(ev) {
+						ev.preventDefault()
+						session.terminate({extraHeaders: [authHeader, buttonHeader]})
+					})
+					document.body.appendChild(callProgress)
+				}
+			})
+			var finish = function () {
+				bwPhone.unregister({all: true})
+				if (typeof options.hideCallProgress === 'function') {
+					options.hideCallProgress()
+				} else {
+					if (callProgress) {
+						document.body.removeChild(callProgress)
+						callProgress = null
+					}
+				}
+			};
 			session.on('ended', finish)
 			session.on('failed', finish)
 		})
