@@ -22,6 +22,7 @@
 		"bcryptjs": "^2.4.3",
 		"debug": "^2.6.8",
 		"dotenv": "^4.0.0",
+		"kcors": "2",
 		"koa": "^2.3.0",
 		"koa-body": "^2.3.0",
 		"koa-passport": "^3.0.0",
