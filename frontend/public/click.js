@@ -6,6 +6,7 @@
 			factory()
 		}
 } )(function(noGlobal) {
+	var thisScriptUrl = document.currentScript.src;
 	var loadJS = function(url) {
 		return new Promise(function(resolve, reject) {
 			var scriptTag = document.createElement('script')
@@ -45,7 +46,7 @@
 				el.addEventListener('click', function(ev) {
 					ev.preventDefault()
 					var id = ev.target.dataset.id
-					var url = document.currentScript.src.replace('/click.js', '/buttons/' + id + '/click')
+					var url = thisScriptUrl.replace('/click.js', '/buttons/' + id + '/click')
 					fetch(url, {method: 'POST', mode: 'cors'})
 						.then(function(r) {
 							if (r.error) {
