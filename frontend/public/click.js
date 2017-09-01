@@ -29,6 +29,7 @@ var getFetch = function() { return typeof window.fetch === 'function' ? Promise.
 var getJSSip = function() { return typeof window.JsSIP !== 'undefined' ? Promise.resolve(window.JsSIP) : loadJS('https://unpkg.com/jssip@3.0.13/dist/jssip.min.js') }
 var remoteAudio = new window.Audio();
 remoteAudio.autoplay = true;
+document.body.appendChild(remoteAudio);
 var prepare = function(el, options) {
 	getFetch()
 		.then(getDetectRTC)
