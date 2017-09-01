@@ -1,11 +1,9 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code, secondaryTheme} from '@bandwidth/shared-components'
+import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {toggleButton, removeButton, getButtons, createButton, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
-
-console.log(secondaryTheme)
 
 const escape = document.createElement('textarea')
 function escapeHTML(html) {

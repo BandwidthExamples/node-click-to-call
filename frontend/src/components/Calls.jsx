@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Alert, Pagination, Button} from '@bandwidth/shared-components'
+import {Table, Spacing, Alert, Pagination, Button, Flow} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {goBack} from 'react-router-redux'
 import {getCalls, SET_PAGE, SET_BUTTON_ID} from '../store/calls'
@@ -32,11 +32,14 @@ class Calls extends React.Component {
 		}
 		return (
 			<Spacing>
-				<h5>Transcribed text</h5>
-				<p>{item.transcribedText}</p>
 				<div>
-					<a href="#">Download recorded call</a>
+					<a href={`/buttons/${item.button}/calls/${item.id}/audio`} target="_blank">Recorded call</a>
 				</div>
+				{item.transcribedText &&
+				(<div>
+					<h5>Transcribed text</h5>
+					<p>{item.transcribedText}</p>
+				</div>)}
 			</Spacing>)
 	}
 
@@ -48,12 +51,18 @@ class Calls extends React.Component {
 			<Spacing>
 				<h2>Calls</h2>
 				{error && <Alert type="error">{error}</Alert>}
-				<Table.Simple items={calls} columns={this.columns} renderRow={renderRow} renderDetails={renderDetails} loading={loading}>
-				</Table.Simple>
-				{pageCount > 0 && !loading && (<Pagination pageCount={pageCount} page={page-1} onPageSelected={pageSelected} />)}
-				<p>
-					<Button onClick={goBack}>Back</Button>
-				</p>
+				<Flow>
+					<Flow.Row>
+						<Table.Simple items={calls} columns={this.columns} renderRow={renderRow} renderDetails={renderDetails} loading={loading}>
+						</Table.Simple>
+					</Flow.Row>
+					<Flow.Row>
+						{pageCount > 0 && !loading && (<Pagination pageCount={pageCount} currentPage={page-1} onPageSelected={pageSelected} />)}
+					</Flow.Row>
+					<Flow.Row>
+						<Button onClick={goBack}>Back</Button>
+					</Flow.Row>
+				</Flow>
 			</Spacing>
 		)
 	}
@@ -73,6 +82,7 @@ export default connect(
 			dispatch(getCalls())
 		},
 		pageSelected: page => {
+			console.log(`pageSelected(${page})`);
 			dispatch({type: SET_PAGE, page: page + 1 })
 			dispatch(getCalls())
 		},
