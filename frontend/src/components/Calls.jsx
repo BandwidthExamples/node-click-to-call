@@ -82,7 +82,6 @@ export default connect(
 			dispatch(getCalls())
 		},
 		pageSelected: page => {
-			console.log(`pageSelected(${page})`);
 			dispatch({type: SET_PAGE, page: page + 1 })
 			dispatch(getCalls())
 		},
