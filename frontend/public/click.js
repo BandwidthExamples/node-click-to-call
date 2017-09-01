@@ -49,8 +49,10 @@ var prepare = function(el, options) {
 				var url = thisScriptUrl.replace('/click.js', '/buttons/' + id + '/click')
 				fetch(url, {method: 'POST', mode: 'cors'})
 					.then(function(r) {
-						if (r.error) {
-							throw new Error(r.error)
+						if (!r.ok) {
+							return r.text().then(text => {
+								throw new Error(text)
+							})
 						}
 						return r.json()
 					})
