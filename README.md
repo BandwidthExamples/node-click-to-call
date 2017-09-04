@@ -24,7 +24,7 @@ Demo app to generate Clic-to-call buttons
 * ```Bandwidth User Id```
 * ```Bandwidth Api Token```
 * ```Bandwidth Api Secret```
-* ```SMTP Host Name"```
+* ```SMTP Host Name```
 * ```SMTP Port```
 * ```SMTP Secure Port```
 * ```SMTP User Name```
