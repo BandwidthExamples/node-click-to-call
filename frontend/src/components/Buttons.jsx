@@ -96,6 +96,7 @@ export default connect(
 		},
 		removeButton: (ev, id) => {
 			ev.preventDefault()
+			ev.stopPropagation()
 			if (window.confirm('Are you sure?')) {
 				dispatch({type: SET_BUTTON_ID, id: id})
 				dispatch(removeButton(id))

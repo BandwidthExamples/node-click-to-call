@@ -25,6 +25,17 @@ export function removeButton(id) {
 	return request(REMOVE_BUTTON, `/buttons/${id}`, 'DELETE')
 }
 
+function prepareNumber(number) {
+	number = (number || '').replace(/[\s\(\)\-]/g, '')
+	if (number.length === 10) {
+		number = `+1${number}`
+	}
+	if (number[0] !== '+') {
+		number = `+${number}`
+	}
+	return number
+}
+
 export default function (state = {}, action) {
 	switch (action.type) {
 		case SET_NUMBER: {
@@ -34,7 +45,7 @@ export default function (state = {}, action) {
 			return {...state, error: action.error, creating: false}
 		}
 		case `${CREATE_BUTTON}_START`: {
-			return {...state, error: null, creating: true, createButton: {number: state.createButtonNumber}}
+			return {...state, error: null, creating: true, createButton: {number: prepareNumber(state.createButtonNumber)}}
 		}
 		case `${CREATE_BUTTON}_SUCCESS`: {
 			const {buttons} = state
@@ -59,7 +70,10 @@ export default function (state = {}, action) {
 		}
 		case `${REMOVE_BUTTON}_SUCCESS`: {
 			const {id, buttons} = state
-			buttons.filter(b => b.id === id).deleted = true
+			const button = buttons.filter(b => b.id === id)[0]
+			if (button) {
+				button.deleted = true
+			}
 			return {...state, error: null, id: null, buttons}
 		}
 		case `${TOGGLE_BUTTON}_START`: {
