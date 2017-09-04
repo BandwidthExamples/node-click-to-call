@@ -10,6 +10,7 @@ import Login from './Login.jsx'
 import Profile from './Profile.jsx'
 import Buttons from './Buttons.jsx'
 import Calls from './Calls.jsx'
+import Help from './Help.jsx'
 
 import {history} from '../store/createStore'
 import {getProfile} from '../store/profile'
@@ -54,6 +55,7 @@ class App extends React.Component {
 								<Route exact path="/reset-password/:token" component={ResetPassword}/>
 								<Route path="/click-to-call-buttons" component={Buttons}/>
 								<Route path="/calls/:id" component={Calls}/>
+								<Route exact path="/help" component={Help}/>
 								{ (isLoggedIn) ?
 									(<Redirect from="/" to="/click-to-call-buttons"/>) :
 									(<Redirect from="/" to="/login"/>)

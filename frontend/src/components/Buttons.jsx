@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code} from '@bandwidth/shared-components'
+import {Table, Spacing, Toggle, Button, Alert, Form, FlexFields, TextField, SubmitButtonField, Code, AnchorField} from '@bandwidth/shared-components'
 import {connect} from 'react-redux'
 import {push} from 'react-router-redux'
 import {toggleButton, removeButton, getButtons, createButton, SORT_COLUMN, SET_NUMBER, SET_BUTTON_ID} from '../store/buttons'
@@ -48,6 +48,9 @@ class Buttons extends React.Component {
 				<Code dangerouslySetInnerHTML={{__html: link}}></Code>
 				<h5>Button code</h5>
 				<Code dangerouslySetInnerHTML={{__html: button}}></Code>
+				<Spacing>
+					<AnchorField to="/help">More details</AnchorField>
+				</Spacing>
 			</Spacing>)
 	}
 

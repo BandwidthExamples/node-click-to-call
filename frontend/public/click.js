@@ -113,7 +113,7 @@ var makeCall = function (data, options) {
 				options.showCallProgress({
 					number,
 					hangup: function(){
-						session.terminate({extraHeaders: [authHeader, buttonHeader]})
+						session.terminate()
 					}
 				})
 			} else {
@@ -130,6 +130,7 @@ var makeCall = function (data, options) {
 				var hangupButton = callProgress.getElementsByClassName('c2c-connect-call')[0]
 				hangupButton.addEventListener('click', function(ev) {
 					ev.preventDefault()
+					ev.stopPropagation()
 					session.terminate()
 				})
 			}
