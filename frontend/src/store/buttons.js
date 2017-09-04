@@ -26,7 +26,7 @@ export function removeButton(id) {
 }
 
 function prepareNumber(number) {
-	number = (number || '').replace(/[\s\(\)\-]/g, '')
+	number = (number || '').replace(/[\s()-]/g, '')
 	if (number.length === 10) {
 		number = `+1${number}`
 	}

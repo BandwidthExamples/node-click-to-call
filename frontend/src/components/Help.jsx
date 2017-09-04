@@ -1,5 +1,5 @@
 import React from 'react'
-import {Spacing, Code, CodeBlock, Flow} from '@bandwidth/shared-components'
+import {Spacing, Code} from '@bandwidth/shared-components'
 
 const escape = document.createElement('textarea')
 function escapeHTML(html) {
