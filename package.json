@@ -40,6 +40,7 @@
 	"devDependencies": {
 		"ava": "^0.19.1",
 		"cross-env": "^5.0.1",
+		"mz": "^2.6.0",
 		"npm-run-all": "^4.0.2",
 		"react-scripts": "^1.0.11",
 		"supertest": "^3.0.0",
