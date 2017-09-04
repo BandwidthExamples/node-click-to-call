@@ -46,8 +46,9 @@ var prepare = function(el, options) {
 			}
 			el.addEventListener('click', function(ev) {
 				ev.preventDefault()
-				var id = ev.target.dataset.id
-				var url = thisScriptUrl.replace('/click.js', '/buttons/' + id + '/click')
+				options.id = options.id || ev.target.dataset.id
+				options.className = options.className || ev.target.dataset.callProgressClassName
+				var url = thisScriptUrl.replace('/click.js', '/buttons/' + options.id + '/click')
 				fetch(url, {method: 'POST', mode: 'cors'})
 					.then(function(r) {
 						if (!r.ok) {
@@ -124,11 +125,12 @@ var makeCall = function (data, options) {
 				'.c2c-connect-call {\n\tcolor: #FFF;\n\tbackground-color: red;\n\twidth: 50px;\n\theight: 50px;\n\ttext-align: center;\n\tfont-size: 30px;\n\tmargin: 10px 0px 10px 0px;\n\tborder-radius: 25px 25px 25px 25px;\n\tmargin-top: 30px;\n\tcursor: pointer;\n\tcursor: hand;}\n' +
 				'</style>\n' +
 				'<div class="c2c-phone-number">' + number + '</div><div class="c2c-connect-call"><i class="fa fa-phone" style="margin-top: 8px;"></i></div>'
+				callProgress.className = options.className
 				document.body.appendChild(callProgress)
 				var hangupButton = callProgress.getElementsByClassName('c2c-connect-call')[0]
 				hangupButton.addEventListener('click', function(ev) {
 					ev.preventDefault()
-					session.terminate({extraHeaders: [authHeader, buttonHeader]})
+					session.terminate()
 				})
 			}
 		})
