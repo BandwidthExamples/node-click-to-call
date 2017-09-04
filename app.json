@@ -19,7 +19,20 @@
     },
     "BANDWIDTH_API_SECRET": {
       "description": "Your Bandwidth Api Secret"
-    },
+		},
+		"SMTP_HOST": {
+			"description": "SMTP Host Name"
+		},
+		"SMTP_PORT": {
+			"description": "SMTP Secure Port",
+			"value": "465"
+		},
+		"SMTP_USER": {
+			"description": "SMTP User Name"
+		},
+		"SMTP_PASSWORD": {
+			"description": "SMTP Password"
+		},
     "NPM_CONFIG_PRODUCTION": {
       "value": "false"
     }
