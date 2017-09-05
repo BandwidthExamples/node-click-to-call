@@ -5,6 +5,8 @@ const supertest = require('supertest');
 const mongoose = require('mongoose');
 const {middlewares} = require('@bandwidth/node-bandwidth-extra');
 
+td.replace('../lib/redis');
+
 process.env.BANDWIDTH_USER_ID = 'userId';
 process.env.BANDWIDTH_API_TOKEN = 'token';
 process.env.BANDWIDTH_API_SECRET = 'secret';
