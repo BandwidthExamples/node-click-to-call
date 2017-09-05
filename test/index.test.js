@@ -32,14 +32,3 @@ test('GET / should render index page', async t => {
 		.expect('Content-Type', /html/);
 	t.pass();
 });
-
-test('should handle calls events', async t => {
-	let callCallback = null;
-	td.when(middlewares.koa(td.matchers.anything())).thenDo(opts => {
-		callCallback = opts.callCallback;
-		return (ctx, next) => next();
-	});
-	const app = await main();
-	await supertest(app.callback()).get('/').expect(200);
-	callCallback()
-});
