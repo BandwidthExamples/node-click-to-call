@@ -1,6 +1,9 @@
 const test = require('ava');
 const td = require('testdouble');
 const passport = require('koa-passport');
+
+td.replace('../lib/redis');
+
 const {User, ConfirmEmailRequest, ResetPasswordRequest} = require('../lib/models');
 
 td.replace(User, 'findOne');
