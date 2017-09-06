@@ -9,7 +9,8 @@
 		"calls",
 		"buttons"
   ],
-  "addons": ["mongolab:sandbox", "heroku-redis:hobby-dev"],
+	"addons": ["mongolab:sandbox", "heroku-redis:hobby-dev"],
+	"private": false,
   "env": {
     "BANDWIDTH_USER_ID": {
       "description": "Your Bandwidth User Id"
