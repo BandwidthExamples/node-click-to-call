@@ -48,7 +48,7 @@
 		"xo": "^0.18.2"
 	},
 	"engines": {
-		"node": ">=8.0"
+		"node": "^8.4"
 	},
 	"xo": {
 		"esnext": true,
