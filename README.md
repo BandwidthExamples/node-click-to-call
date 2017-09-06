@@ -21,6 +21,7 @@ Demo app to generate Clic-to-call buttons
 ### One Click Deploy
 
 #### Settings Required To Run
+
 * ```Bandwidth User Id```
 * ```Bandwidth Api Token```
 * ```Bandwidth Api Secret```
@@ -29,7 +30,6 @@ Demo app to generate Clic-to-call buttons
 * ```SMTP Secure Port```
 * ```SMTP User Name```
 * ```SMTP Password```
-
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
