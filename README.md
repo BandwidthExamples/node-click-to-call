@@ -4,7 +4,7 @@
 
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-Demo app to generate Clic-to-call buttons
+Demo app to generate Click-to-call buttons
 
 ## Prerequisites
 - Configured Machine with Ngrok/Port Forwarding
