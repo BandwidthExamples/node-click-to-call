@@ -13,8 +13,7 @@
 		"dev:frontend-server": "cd frontend && cross-env HOST=0.0.0.0 DANGEROUSLY_DISABLE_HOST_CHECK=true npm start",
 		"dev:server": "cross-env PORT=5000 npm start",
 		"dev": "npm-run-all --parallel dev:*",
-		"build": "cd frontend && npm run build",
-		"heroku-postbuild": "docker run --rm -i -t -v ./frontend:/src -w /src node:8 yarn install && yarn run build"
+		"build": "cd frontend && npm run build"
 	},
 	"dependencies": {
 		"@bandwidth/node-bandwidth-extra": "^1.0.1",
