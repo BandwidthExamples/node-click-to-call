@@ -77,7 +77,7 @@ class Buttons extends React.Component {
 					<SubmitButtonField loading={creating}>Create button</SubmitButtonField>
 				</Form>
 				<Spacing/>
-				{buttons && buttons.length > 0 && <Alert type="info" textOnly="true">Click on row to see more details</Alert>}
+				{buttons && buttons.length > 0 && <Spacing><Alert type="info" textOnly="true"><p>Click on row to see more details</p></Alert></Spacing>}
 				<Table.Simple items={buttons} columns={this.columns} renderRow={renderRow} renderDetails={renderDetails} onSortChanged={handleSortChanged} loading={loading}>
 				</Table.Simple>
 			</Spacing>

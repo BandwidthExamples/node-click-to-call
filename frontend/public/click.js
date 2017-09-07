@@ -39,6 +39,7 @@ var prepare = function(el, options) {
 			var DetectRTC = window.DetectRTC
 			var fetch = window.fetch
 			var JsSIP = window.JsSIP
+			JsSIP.debug.enable('JsSIP:*')
 			if (DetectRTC.isWebRTCSupported === false) {
 				return console.error('This browser does not support WebRTC. Please use latest Chrome (or Chromium-based browser) or Firefox.');
 			}
