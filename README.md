@@ -55,6 +55,8 @@ npm install # to install dependencies
 npm run build # to build frontend
 
 npm start
+
+# Open extrnal access to port 3000 via ngrok or similar tool
 ```
 
 ### Via Docker
@@ -64,4 +66,6 @@ npm start
 
 # run the app (it will listen port 8080)
 PORT=8080 docker-compose up -d
+
+# Open access to port 8080 via ngrok or similar tool
 ```
