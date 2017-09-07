@@ -51,7 +51,7 @@ export default function (state = {}, action) {
 			const {buttons} = state
 			action.result.isNew = true
 			buttons.unshift(action.result)
-			return {...state, error: null, creating: false, success: true, buttons}
+			return {...state, error: null, creating: false, success: true, buttons, createButtonNumber: null}
 		}
 		case `${GET_BUTTONS}_ERROR`: {
 			return {...state, error: action.error, loading: false}

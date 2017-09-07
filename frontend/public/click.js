@@ -31,6 +31,7 @@ var remoteAudio = new window.Audio();
 remoteAudio.autoplay = true;
 document.body.appendChild(remoteAudio);
 var prepare = function(el, options) {
+	options = options || {};
 	getFetch()
 		.then(getDetectRTC)
 		.then(getJSSip)
@@ -154,7 +155,9 @@ var result = noGlobal ? {} : window
 result.prepare = prepare
 if (!noGlobal) {
 	document.addEventListener('DOMContentLoaded', function() {
-		 document.querySelectorAll('.click-to-call').forEach(prepare)
+		document.querySelectorAll('.click-to-call').forEach(function(el) {
+			return prepare(el)
+		})
 	})
 }
 return result
