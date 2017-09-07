@@ -1,78 +1,71 @@
-node-click-to-call
-======================
+## Bandwidth Click-to-call Example
 
-Sip App is simple application which allows to make calls directly to sip account, redirect outgoing calls from sip account to another number, redirect incoming calls from specific number to sip account. Also this application demonstrate how to receive/create an application, domain, endpoint, buy phone numbers.
+[![Build Status](https://travis-ci.org/BandwidthExamples/node-click-to-call.svg)](https://travis-ci.org/BandwidthExamples/node-click-to-call)
 
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-Before run them fill config file `options.json` with right values.
-Option `domain` should contains host name (and port) which will be used to access to the server from external network.
+Demo app to generate Click-to-call buttons
 
-
-### How to run
-
-Install required node modules
-
-```
-npm install
-```
-
-Run sipApp demo as
-
-```
-node sipApp.js
-```
+## Prerequisites
+- Configured Machine with Ngrok/Port Forwarding
+  - [Ngrok](https://ngrok.com/)
+- [Bandwidth Account](https://catapult.inetwork.com/pages/signup.jsf/?utm_medium=social&utm_source=github&utm_campaign=dtolb&utm_content=_)
+- [Node v8.0+](https://nodejs.org/en/)
+- [MongoDb](http://www.mongodb.org/)
+- [Redis](https://redis.io)
+- [Git](https://git-scm.com/)
 
 
-Use environment variable `PORT` to change default port (3000) which will be used by these apps.
+## Build and Deploy
 
-Open home page in browser first (http://domain)  and follow instructions on it
+### One Click Deploy
 
-### Deploy on heroku
+#### Settings Required To Run
 
-Create account on [Heroku](https://www.heroku.com/) and install [Heroku Toolbel](https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up) if need.
+* ```Bandwidth User Id```
+* ```Bandwidth Api Token```
+* ```Bandwidth Api Secret```
+* ```SMTP Host Name```
+* ```SMTP Port```
+* ```SMTP Secure Port```
+* ```SMTP User Name```
+* ```SMTP Password```
 
-Open `package.json` in text editor and select which demo you would like to deploy on line 7.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-```
+## Run
 
-// for Sip App
-"start": "node ./sipApp.js"
+### Directly
 
-```
+```bash
+# Check first if mongodb and redis are started and available
+# Use DATABASE_URL to specify location of db if need
+# User REDIS_URL to to specify location of redis if need
 
-Then open `options.json` and fill it with valid values (except `domain`).
-
-Commit your changes.
-
-```
-git add .
-git commit -a -m "Deployment"
-```
-
-Run `heroku create` to create new app on Heroku and link it with current project.
-
-Change option `domain` in options.json by assigned by Heroku value (something like XXXX-XXXXXX-XXXX.heroku.com). Commit your changes by `git commit -a`. 
-
-Run `git push heroku master` to deploy this project.
-
-Run `heroku open` to see home page of the app in the browser
-
-### Open external access via ngrock
-
-As alternative to deployment to external hosting you can open external access to local web server via [ngrock](https://ngrok.com/).
-
-First instal ngrock on your computer. Run ngrock by
+export BANDWIDTH_USER_ID=<YOUR-USER-ID>
+export BANDWIDTH_API_TOKEN=<YOUR-API-TOKEN>
+export BANDWIDTH_API_SECRET=<YOUR-API-SECRET>
+export SMTP_HOST=<YOUR-SMTP-HOST>
+export SMTP_PORT=<YOUR-SMTP-PORT>
+export SMTP_USER=<YOUR-SMTP-USER>
+export SMTP_PASSWORD=<YOUR-SMTP-PASSWORD>
 
 
-```
-ngrok http 3000 #you can use another free port if need 
+npm install # to install dependencies
+npm run build # to build frontend
+
+npm start
+
+# Open extrnal access to port 3000 via ngrok or similar tool
 ```
 
-You will see url like http://XXXXXXX.ngrok.io on console output. Open `options.json` and fill value `domain` by value from console (i.e. like XXXXXXX.ngrock.io). Save changes and run demo app by
+### Via Docker
 
+```bash
+# fill .env file with auth data first
 
+# run the app (it will listen port 8080)
+PORT=8080 docker-compose up -d
+
+# Open access to port 8080 via ngrok or similar tool
 ```
-# for Sip App
-PORT=3000 node ./sip_app.js
-```
-

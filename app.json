@@ -1,0 +1,41 @@
+{
+  "name": "node-click-to-call",
+  "description": "Bandwidth API Sample App Click to call",
+  "logo": "https://avatars2.githubusercontent.com/u/12057884?v=3&s=200",
+  "keywords": [
+    "node",
+    "bandwidth",
+    "click",
+		"calls",
+		"buttons"
+  ],
+	"addons": ["mongolab:sandbox", "heroku-redis:hobby-dev"],
+	"private": false,
+  "env": {
+    "BANDWIDTH_USER_ID": {
+      "description": "Your Bandwidth User Id"
+    },
+    "BANDWIDTH_API_TOKEN": {
+      "description": "Your Bandwidth Api Token"
+    },
+    "BANDWIDTH_API_SECRET": {
+      "description": "Your Bandwidth Api Secret"
+		},
+		"SMTP_HOST": {
+			"description": "SMTP Host Name"
+		},
+		"SMTP_PORT": {
+			"description": "SMTP Secure Port",
+			"value": "465"
+		},
+		"SMTP_USER": {
+			"description": "SMTP User Name"
+		},
+		"SMTP_PASSWORD": {
+			"description": "SMTP Password"
+		},
+    "NPM_CONFIG_PRODUCTION": {
+      "value": "false"
+    }
+  }
+}

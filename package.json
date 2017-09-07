@@ -1,26 +1,61 @@
 {
-  "name": "node-click-to-call",
-  "version": "1.0.0",
-  "description": "Demo of using Catapult api",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./sipApp.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BandwidthExamples/node-click-to-call"
-  },
-  "author": "Bandwidth",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/BandwidthExamples/node-click-to-call/issues"
-  },
-  "homepage": "https://github.com/BandwidthExamples/node-click-to-call",
-  "dependencies": {
-    "async": "^0.9.0",
-    "body-parser": "^1.10.0",
-    "debug": "^2.1.0",
-    "express": "^4.10.6",
-    "node-bandwidth": "^1.0.6"
-  }
+	"name": "node-click-to-call",
+	"version": "2.0.0",
+	"description": "Click-to-call application",
+	"repository": "https://github.com/BandwidthExamples/node-click-to-call",
+	"author": "avbel",
+	"license": "MIT",
+	"main": "lib/index.js",
+	"scripts": {
+		"start": "node -e \"require('./lib/index')().then(app => {app.listen(process.env.PORT || 3000); console.log('Ready');});\"",
+		"lint": "xo",
+		"test": "ava",
+		"dev:frontend-server": "cd frontend && cross-env HOST=0.0.0.0 DANGEROUSLY_DISABLE_HOST_CHECK=true npm start",
+		"dev:server": "cross-env PORT=5000 npm start",
+		"dev": "npm-run-all --parallel dev:*",
+		"postinstall": "cd ./frontend && npm install && cd ..",
+		"build": "cd ./frontend && npm run build",
+		"heroku-postbuild": "npm run build"
+	},
+	"dependencies": {
+		"@bandwidth/node-bandwidth-extra": "^1.0.1",
+		"bcryptjs": "^2.4.3",
+		"debug": "^2.6.8",
+		"dotenv": "^4.0.0",
+		"kcors": "2",
+		"koa": "^2.3.0",
+		"koa-body": "^2.3.0",
+		"koa-passport": "^3.0.0",
+		"koa-router": "^7.2.1",
+		"koa-send": "^4.1.0",
+		"koa-session": "^5.4.0",
+		"koa-static": "^4.0.1",
+		"mongoose": "4.10.0",
+		"node-bandwidth": "^2.3.3",
+		"nodemailer": "^4.0.1",
+		"passport-local": "^1.0.0",
+		"redis": "^2.8.0",
+		"sse_stream": "^0.0.2"
+	},
+	"devDependencies": {
+		"ava": "^0.19.1",
+		"cross-env": "^5.0.1",
+		"mz": "^2.6.0",
+		"npm-run-all": "^4.0.2",
+		"supertest": "^3.0.0",
+		"testdouble": "^2.1.2",
+		"xo": "^0.18.2"
+	},
+	"engines": {
+		"node": "^8.4"
+	},
+	"xo": {
+		"esnext": true,
+		"envs": [
+			"node"
+		],
+		"ignores": [
+			"frontend/**"
+		]
+	}
 }
