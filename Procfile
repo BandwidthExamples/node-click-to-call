@@ -1,1 +1,1 @@
-web: yarn run build_and_start
+web: yarn start
