@@ -13,7 +13,7 @@
 		"dev:frontend-server": "cd frontend && cross-env HOST=0.0.0.0 DANGEROUSLY_DISABLE_HOST_CHECK=true npm start",
 		"dev:server": "cross-env PORT=5000 npm start",
 		"dev": "npm-run-all --parallel dev:*",
-		"postinstall": "yarn install --cwd ./frontend",
+		"postinstall": "cd ./frontend && npm install",
 		"build": "cd ./frontend && npm run build",
 		"heroku-postbuild": "npm run build"
 	},
