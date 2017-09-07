@@ -4,7 +4,7 @@ RUN mkdir /src
 
 WORKDIR /src
 ADD . /src
-RUN yarn install && yarn run build
+RUN yarn install && cd ./frontend && yarn install --force && yarn build
 
 EXPOSE 3000
 
