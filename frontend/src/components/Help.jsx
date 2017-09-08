@@ -13,11 +13,12 @@ export default class Help extends React.Component {
 		const link = escapeHTML(`<a class="click-to-call" data-id="YOUR_BUTTON_ID" href="#">Call</a>`)
 		const button = escapeHTML(`<button class="click-to-call" data-id="YOUR_BUTTON_ID">Call</button>`)
 		const link2 = escapeHTML(`<a class="click-to-call" data-id="YOUR_BUTTON_ID" data-call-progress-class-name="YOUR_CLASS_NAME" href="#">Call</a>`)
-		const demo = `import {prepare} from 'click' // where 'click' is alias to '${window.location.origin}/click.js'\n` +
+		const demo = `import {prepareClick2Call} from 'click' // where 'click' is alias to '${window.location.origin}/click.js'\n` +
+`// as alternative you can use gobal function prepareClick2Call() after loading script '${window.location.origin}/click.js'\n\n`+
 `// in your component/directive\n` +
-`prepare(el, {id: 'YOUR_BUTTON_ID'}) // el is html element A or BUTTON\n\n` +
+`prepareClick2Call(el, {id: 'YOUR_BUTTON_ID'}) // el is html element A or BUTTON\n\n` +
 `// more complex demo with using own call proggress ui\n` +
-`prepare(el, {` +
+`prepareClick2Call(el, {` +
 `	id: 'YOUR_BUTTON_ID',\n` +
 `	showCallProgress: ({number, hangup}) => {\n` +
 `		// Show your progress  here. Call 'hangup()' to complete a call.\n` +

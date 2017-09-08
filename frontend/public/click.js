@@ -152,7 +152,7 @@ var makeCall = function (data, options) {
 	})
 }
 var result = noGlobal ? {} : window
-result.prepare = prepare
+result.prepareClick2Call = prepare
 if (!noGlobal) {
 	document.addEventListener('DOMContentLoaded', function() {
 		document.querySelectorAll('.click-to-call').forEach(function(el) {
