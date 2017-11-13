@@ -1,10 +1,17 @@
-## Bandwidth Click-to-call Example
+<div align="center">
+
+# Bandwidth Click-to-call Example
+
+<a href="http://dev.bandwidth.com"><img src="https://s3.amazonaws.com/bwdemos/BW_Voice.png"/></a>
+</div>
+
+Demo app to generate Click-to-call buttons
 
 [![Build Status](https://travis-ci.org/BandwidthExamples/node-click-to-call.svg)](https://travis-ci.org/BandwidthExamples/node-click-to-call)
 
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
-Demo app to generate Click-to-call buttons
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## Prerequisites
 - Configured Machine with Ngrok/Port Forwarding
